@@ -1,0 +1,71 @@
+.Cart {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #871A85;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.Cart-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.Cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #FE18D3;
+}
+
+.Cart-total {
+    margin-top: 20px;
+    text-align: right;
+    font-weight: bold;
+    color: #FEFF38;
+}
+
+/* 80s retro wind animation */
+@keyframes windEffect {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Apply the wind animation on hover */
+.Cart-payment-button:hover {
+    background-image: linear-gradient(
+        90deg,
+        #4206F1 0%,
+        #871A85 25%,
+        #FF2941 50%,
+        #FE18D3 75%,
+        #4206F1 100%
+    );
+    background-size: 200% 100%;
+    animation: windEffect 1.5s infinite linear;
+    text-shadow: 0 0 5px #fff, 0 0 10px #FF2941;
+}
+
+.Cart-payment-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4206F1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.Cart-payment-button:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}

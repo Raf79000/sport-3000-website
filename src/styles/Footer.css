@@ -1,0 +1,115 @@
+@keyframes neonPulse {
+    0%, 100% {
+        text-shadow: 0 0 5px #FE18D3, 0 0 10px #FE18D3, 0 0 20px #FE18D3;
+    }
+    50% {
+        text-shadow: 0 0 10px #FF2941, 0 0 20px #FF2941, 0 0 30px #FF2941;
+    }
+}
+
+.App-footer {
+    background-color: #871A85;
+    color: white;
+    padding: 40px 20px 20px;
+    margin-top: 50px;
+    border-top: 4px solid #FE18D3;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 0 20px;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.footer-section h3 {
+    color: #FEFF38;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #FF2941;
+}
+
+.footer-logo {
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.footer-section.brand p {
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.footer-section.links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section.links li {
+    margin-bottom: 10px;
+}
+
+.footer-section a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #FEFF38;
+    transform: translateX(5px);
+    display: inline-block;
+}
+
+.social-icons {
+    display: flex;
+    margin-top: 20px;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #4206F1;
+    margin-right: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.social-icon:hover {
+    background-color: #FF2941;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: neonPulse 1.5s infinite;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(254, 41, 65, 0.3);
+    font-size: 0.9rem;
+}
