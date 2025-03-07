@@ -52,6 +52,21 @@
     font-size: 1.4rem;
 }
 
+.item-price-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.item-sales-price {
+    color: #FEFF38;
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    right: 20px;
+    text-align: right;
+}
+
 .item-price {
     color: white;
     font-weight: bold;

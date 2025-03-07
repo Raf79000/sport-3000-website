@@ -1,19 +1,32 @@
 import '../styles/App.css';
 import Header from '../components/Header';
-import Cart from '../components/Cart';
-import ShoppingList from '../components/ShoppingList';
 import Footer from '../components/Footer';
+import Products from './Products';
+import About from './About';
+import Contact from './Contact';
+import Checkout from './Checkout';
 import { CartProvider } from '../contexts/CartContext';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <CartProvider>
-        <ShoppingList />
-        <Cart />
+        <Router>
+          <Header />
+          <Routes>
+            <Route path='/' element={<Products />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/checkout' element={<Checkout />} />
+          </Routes>
+          <Footer />
+        </Router>
       </CartProvider>
-      <Footer />
     </div>
   );
 }

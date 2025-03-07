@@ -22,14 +22,14 @@ const Cart = () => {
                                 </div>
                                 <div className="cart-item-actions">
                                     <div className="quantity-controls">
-                                        <button 
+                                        <button
                                             className="quantity-btn"
                                             onClick={() => removeFromCart(index)}
                                         >
                                             -
                                         </button>
                                         <span className="item-quantity">{item.quantity}</span>
-                                        <button 
+                                        <button
                                             className="quantity-btn"
                                             onClick={() => addToCart(item)}
                                         >
@@ -44,7 +44,7 @@ const Cart = () => {
                     <div className="cart-total">
                         Total: ${totalPrice}
                     </div>
-                    <button className="checkout-btn">Checkout</button>
+                    <button className="checkout-btn" onClick={() => window.location.href = '/checkout'}>Checkout</button>
                 </>
             ) : (
                 <p className="empty-cart-message">Your cart is empty</p>

@@ -36,10 +36,13 @@
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 20px;
+    margin: 20px 0 0;  /* Changed from auto to 0 */
     transition: all 0.3s ease;
     display: block;
-    width: 100%;
+    width: 100%;  /* Changed from fit-content to 100% */
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;  /* Added to ensure padding is included in width */
 }
 
 .checkout-btn:hover {
@@ -52,7 +55,7 @@
     background-size: 200% 100%;
     animation: windEffect 1.5s infinite linear;
     text-shadow: 0 0 5px #fff, 0 0 10px #FF2941;
-    transform: scale(1.05) translateY(-2px);
+    transform: scale(1.02) translateY(-2px);  /* Reduced scale effect slightly */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
