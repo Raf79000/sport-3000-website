@@ -18,6 +18,7 @@ function ShoppingList() {
                         price={item.price}
                         imageUrl={item.img}
                         description={item.description || "Premium sports equipment for athletes."}
+                        onSale={item.onSale}
                         onAddToCart={() => addToCart(item)}
                     />
                 ))}

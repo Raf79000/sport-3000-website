@@ -4,20 +4,23 @@
         "name": "Haltères",
         "price": 19.99,
         "img": "../assets/images/dumbbell.svg",
-        "description": "Des gros biscotos en perspective !"
+        "description": "Des gros biscotos en perspective !",
+        "onSale": false
     },
     {
         "id": 2,
         "name": "Balle de gym",
         "price": 14.99,
         "img": "../assets/images/gymball.svg",
-        "description": "Plus de rebond dans vos activités et dans votre corps !"
+        "description": "Plus de rebond dans vos activités et dans votre corps !",
+        "onSale": true
     },
     {
         "id": 3,
         "name": "Lunettes de soleil",
         "price": 39.99,
         "img": "../assets/images/sunglasses.svg",
-        "description": "Protégez vous des éclaboussures de sueur !"
+        "description": "Protégez vous des éclaboussures de sueur !",
+        "onSale": false
     }
 ]

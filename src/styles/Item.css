@@ -7,8 +7,17 @@
         background-position: 200% 0;
     }
 }
-
+.sales {
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    font-weight: 500;
+    color: white;
+    padding: 5px 10px;
+    background-color: #e69946;
+}
 .merch-item {
+    position: relative;
     background-color: #871A85;
     border-radius: 8px;
     overflow: hidden;
