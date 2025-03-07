@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
 import Item from './Item';
 import merchs from '../datas/merchs.json';
+import { useCart } from '../contexts/CartContext';
 import '../styles/ShoppingList.css';
 
 function ShoppingList() {
-    const [cart, setCart] = useState([]);
-    
-    const addToCart = (item) => {
-        setCart([...cart, item]);
-        console.log(`Added ${item.name} to cart`);
-    };
+    const { addToCart } = useCart();
     
     return (
         <div className="shopping-list">
@@ -26,28 +21,6 @@ function ShoppingList() {
                         onAddToCart={() => addToCart(item)}
                     />
                 ))}
-            </div>
-            
-            <div className="cart-summary">
-                <h3>Shopping Cart</h3>
-                {cart.length > 0 ? (
-                    <>
-                        <ul className="cart-list">
-                            {cart.map((item, index) => (
-                                <li key={index} className="cart-item">
-                                    <span>{item.name}</span>
-                                    <span>${item.price.toFixed(2)}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="cart-total">
-                            Total: ${cart.reduce((sum, item) => sum + item.price, 0).toFixed(2)}
-                        </div>
-                        <button className="checkout-btn">Checkout</button>
-                    </>
-                ) : (
-                    <p className="empty-cart-message">Your cart is empty</p>
-                )}
             </div>
         </div>
     );

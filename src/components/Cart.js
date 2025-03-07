@@ -1,33 +1,54 @@
-import React from "react";
+import React from 'react';
 import "../styles/Cart.css";
-
-var product1 = 10;
-var product2 = 20;
-var product3 = 30;
-var total = product1 + product2 + product3;
+import { useCart } from '../contexts/CartContext';
 
 const Cart = () => {
+    const { cart, addToCart, removeFromCart } = useCart();
+
+    // Calculate total price
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+
     return (
-        <div className="Cart">
-            <h2>Your Cart</h2>
-            <ul className="Cart-list">
-                <li className="Cart-item">
-                    <span>Product 1</span>
-                    <span>Price: ${product1}</span>
-                </li>
-                <li className="Cart-item">
-                    <span>Product 2</span>
-                    <span>Price: ${product2}</span>
-                </li>
-                <li className="Cart-item">
-                    <span>Product 3</span>
-                    <span>Price: ${product3}</span>
-                </li>
-            </ul>
-            <div className="Cart-total">
-                <span>Total: ${total}</span>
-            </div>
-            <button className="Cart-payment-button">Proceed to Payment</button>
+        <div className="cart-summary">
+            <h3>Shopping Cart</h3>
+            {cart.length > 0 ? (
+                <>
+                    <ul className="cart-list">
+                        {cart.map((item, index) => (
+                            <li key={index} className="cart-item">
+                                <div className="cart-item-info">
+                                    <span>{item.name}</span>
+                                    <span className="cart-item-price">${item.price.toFixed(2)}</span>
+                                </div>
+                                <div className="cart-item-actions">
+                                    <div className="quantity-controls">
+                                        <button 
+                                            className="quantity-btn"
+                                            onClick={() => removeFromCart(index)}
+                                        >
+                                            -
+                                        </button>
+                                        <span className="item-quantity">{item.quantity}</span>
+                                        <button 
+                                            className="quantity-btn"
+                                            onClick={() => addToCart(item)}
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                    <span className="item-total">${(item.price * item.quantity).toFixed(2)}</span>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                    <div className="cart-total">
+                        Total: ${totalPrice}
+                    </div>
+                    <button className="checkout-btn">Checkout</button>
+                </>
+            ) : (
+                <p className="empty-cart-message">Your cart is empty</p>
+            )}
         </div>
     );
 };

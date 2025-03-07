@@ -1,71 +1,147 @@
-.Cart {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
+.cart-summary {
     background-color: #871A85;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    color: white;
+    border-radius: 8px;
+    max-width: 1200px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
 }
 
-.Cart-list {
+.cart-summary h3 {
+    color: #FEFF38;
+    margin-top: 0;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #FE18D3;
+    padding-bottom: 10px;
+}
+
+.cart-list {
     list-style-type: none;
     padding: 0;
 }
 
-.Cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #FE18D3;
-}
-
-.Cart-total {
+.cart-total {
     margin-top: 20px;
     text-align: right;
     font-weight: bold;
     color: #FEFF38;
+    font-size: 1.2rem;
 }
 
-/* 80s retro wind animation */
-@keyframes windEffect {
-    0% {
-        background-position: -100% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-/* Apply the wind animation on hover */
-.Cart-payment-button:hover {
-    background-image: linear-gradient(
-        90deg,
-        #4206F1 0%,
-        #871A85 25%,
-        #FF2941 50%,
-        #FE18D3 75%,
-        #4206F1 100%
-    );
-    background-size: 200% 100%;
-    animation: windEffect 1.5s infinite linear;
-    text-shadow: 0 0 5px #fff, 0 0 10px #FF2941;
-}
-
-.Cart-payment-button {
-    margin-top: 20px;
-    padding: 10px 20px;
+.checkout-btn {
     background-color: #4206F1;
     color: white;
     border: none;
+    padding: 12px 25px;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: block;
+    width: 100%;
 }
 
-.Cart-payment-button:hover {
+.checkout-btn:hover {
+    background-image: linear-gradient(90deg,
+            #4206F1 0%,
+            #871A85 25%,
+            #FF2941 50%,
+            #FE18D3 75%,
+            #4206F1 100%);
+    background-size: 200% 100%;
+    animation: windEffect 1.5s infinite linear;
+    text-shadow: 0 0 5px #fff, 0 0 10px #FF2941;
     transform: scale(1.05) translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.empty-cart-message {
+    text-align: center;
+    color: white;
+    font-style: italic;
+}
+
+.remove-item-btn {
+    background: #FF2941;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.remove-item-btn:hover {
+    background: #4206F1;
+    transform: scale(1.1);
+}
+
+.cart-item-price {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9em;
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0;
+    border-bottom: 1px solid #FE18D3;
+}
+
+.cart-item-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.cart-item-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 2px;
+}
+
+.quantity-btn {
+    background: #4206F1;
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.quantity-btn:hover {
+    background: #FF2941;
+    transform: scale(1.1);
+}
+
+.item-quantity {
+    padding: 0 10px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.item-total {
+    font-weight: bold;
+    color: #FEFF38;
 }
