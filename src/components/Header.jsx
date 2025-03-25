@@ -1,6 +1,7 @@
-import React from 'react';
 import '../styles/Header.css';
 import logoSrc from '../sport_3000_logo.svg';
+import { TiShoppingCart } from "react-icons/ti";
+import { TiCogOutline } from "react-icons/ti";
 
 const Header = () => {
     return (
@@ -18,7 +19,8 @@ const Header = () => {
                     <li className='App-header-menu-item'><a href='/'>Products</a></li>
                     <li className='App-header-menu-item'><a href='/about'>About</a></li>
                     <li className='App-header-menu-item'><a href='/contact'>Contact</a></li>
-                    <li className='App-header-menu-item'><a href='/checkout'>Checkout</a></li>
+                    <li className='App-header-menu-item'><a href='/checkout'><TiShoppingCart /></a></li>
+                    <li className='App-header-menu-item'><a href='/preferences'><TiCogOutline /></a></li>
                 </ul>
             </nav>
         </header>
