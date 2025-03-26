@@ -1,0 +1,44 @@
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: eseo
+      MYSQL_DATABASE: sport_3000
+      MYSQL_USER: user
+      MYSQL_PASSWORD: eseo
+    ports:
+      - 3306:3306
+    volumes:
+      - /home/daigreraphael/Documents/ESEO/FRONT/my-app/data:/app/db_data
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: user
+      PMA_PASSWORD: eseo
+
+  backend:
+    container_name: expressjs
+    build: .
+    depends_on:
+      - mariadb
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      DB_HOST: mariadb
+      DB_USER: user
+      DB_PASSWORD: eseo
+      DB_NAME: sport_3000
+
+volumes:
+  db_data:

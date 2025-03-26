@@ -1,12 +1,18 @@
 {
   "name": "back",
   "version": "1.0.0",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "5.0.1",
+    "nodemon": "^3.1.9"
+  },
   "description": "",
   "license": "ISC",
-  "author": "",
+  "author": "DAIGRE Raphael",
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
