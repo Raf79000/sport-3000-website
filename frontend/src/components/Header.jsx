@@ -19,7 +19,7 @@ const Header = () => {
             <nav className="App-header-right">
                 <ul className='App-header-menu'>
                     <li className='App-header-menu-item'><Link to='/'>Products</Link></li>
-                    <li className='App-header-menu-item'><Link to='/Linkbout'>About</Link></li>
+                    <li className='App-header-menu-item'><Link to='/About'>About</Link></li>
                     <li className='App-header-menu-item'><Link to='/contact'>Contact</Link></li>
                     <li className='App-header-menu-item'><Link to='/checkout'><TiShoppingCart /></Link></li>
                     <li className='App-header-menu-item'><MdOutlineDarkMode /></li>

@@ -9,11 +9,11 @@ const Item = ({ name, price, imageUrl, description, onSale, salesPrice, onAddToC
             <div className="item-details">
                 <h3 className="item-name">{name}</h3>
                 <div className="item-price-container">
-                    {onSale && <p className="item-sales-price">${salesPrice.toFixed(2)}</p>}
-                    <p className="item-price">{onSale ? <del>${price.toFixed(2)}</del> : `$${price.toFixed(2)}`}</p>
+                    {onSale === 1 && <p className="item-sales-price">${salesPrice.toFixed(2)}</p>}
+                    <p className="item-price">{onSale === 1 ? <del>${price.toFixed(2)}</del> : `$${price.toFixed(2)}`}</p>
                 </div>
                 <p className="item-description">{description}</p>
-                {onSale && <div className='sales'>Soldes</div>}
+                {onSale === 1 && <div className='sales'>Soldes</div>}
                 <button 
                     className="add-to-cart-btn"
                     onClick={onAddToCart}

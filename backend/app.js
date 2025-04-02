@@ -21,7 +21,7 @@ db_connexion.connect((err) => {
 
 app.use(cors());
 
-app.use("/", (req, res) => {
+app.get("/", (req, res, next) => {
   db_connexion.query("SELECT * FROM items", (error, results) => {
     if (error) {
       console.error("Wsh frérot erreur sur ta query: ", error);
