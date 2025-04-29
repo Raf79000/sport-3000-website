@@ -1,4 +1,5 @@
 <<<<<<< HEAD:frontend/src/components/ShoppingList.jsx
+<<<<<<< HEAD:frontend/src/components/ShoppingList.jsx
 import Item from "./Item";
 import { useCart } from "../contexts/CartContext";
 import "../styles/ShoppingList.css";
@@ -45,6 +46,8 @@ function ShoppingList() {
 
 export default ShoppingList;
 =======
+=======
+>>>>>>> main:src/components/ShoppingList.jsx
 import Item from './Item';
 import merchs from '../datas/merchs.json';
 import { useCart } from '../contexts/CartContext';
@@ -75,5 +78,9 @@ function ShoppingList() {
     );
 }
 
+<<<<<<< HEAD:frontend/src/components/ShoppingList.jsx
 export default ShoppingList;
 >>>>>>> 252aa09 (feat: went for tailwindcss):src/components/ShoppingList.jsx
+=======
+export default ShoppingList;
+>>>>>>> main:src/components/ShoppingList.jsx
