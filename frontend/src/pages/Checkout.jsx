@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import "../styles/Checkout.css";
 import Header from "../components/Header";
@@ -94,12 +95,11 @@ const Checkout = () => {
                 <strong>{Math.floor(Math.random() * 10000000)}</strong>
               </p>
             </div>
-            <button
-              className="primary-btn"
-              onClick={() => (window.location.href = "/")}
-            >
-              Continue Shopping
-            </button>
+            <Link to="/">
+              <button type="button" className="primary-btn">
+                Continue Shopping
+              </button>
+            </Link>
           </div>
         </div>
         <Footer />
@@ -168,12 +168,9 @@ const Checkout = () => {
                       </div>
                     ))}
                     <div className="checkout-actions">
-                      <button
-                        className="secondary-btn"
-                        onClick={() => (window.location.href = "/")}
-                      >
-                        Back to Shop
-                      </button>
+                      <Link to="/">
+                        <button className="secondary-btn">Back to Shop</button>
+                      </Link>
                       <button className="primary-btn" onClick={handleNext}>
                         Continue to Shipping
                       </button>
@@ -184,12 +181,9 @@ const Checkout = () => {
                     <p>
                       Your cart is empty! Add some products before checking out.
                     </p>
-                    <button
-                      className="primary-btn"
-                      onClick={() => (window.location.href = "/")}
-                    >
-                      Back to Shop
-                    </button>
+                    <Link to="/">
+                      <button className="primary-btn">Back to Shop</button>
+                    </Link>
                   </div>
                 )}
               </div>

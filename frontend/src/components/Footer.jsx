@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Footer.css';
 import logoSrc from '../sport_3000_logo.svg';
 
@@ -15,10 +16,10 @@ const Footer = () => {
                 <div className="footer-section links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="/">Products</a></li>
-                        <li><a href="/about">About Us</a></li>
-                        <li><a href="/faq">FAQs</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li><Link to="/">Products</Link></li>
+                        <li><Link to="/about">About Us</Link></li>
+                        <li><Link to="/faq">FAQs</Link></li>
+                        <li><Link to="/contact">Contact</Link></li>
                     </ul>
                 </div>
                 

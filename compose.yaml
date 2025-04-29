@@ -27,8 +27,8 @@ services:
       PMA_PASSWORD: eseo
 
   backend:
-    container_name: expressjs
-    build: .
+    container_name: backend
+    build: ./backend/
     depends_on:
       - mariadb
       - phpmyadmin
@@ -40,15 +40,19 @@ services:
       DB_USER: user
       DB_PASSWORD: eseo
       DB_NAME: sport_3000
+    volumes:
+      - ./backend:/backend
   
-  # frontend:
-  #   container_name: app
-  #   build: ./frontend/
-  #   depends_on:
-  #     - backend
-  #   restart: always
-  #   ports:
-  #     - 8081:80
+  frontend:
+    container_name: frontend
+    build: ./frontend/
+    depends_on:
+      - backend
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./frontend:/frontend
 
 volumes:
   db_data:

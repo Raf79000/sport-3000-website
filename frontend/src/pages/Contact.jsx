@@ -32,6 +32,7 @@ const Contact = () => {
     });
   };
 
+  // eslint-disable-next-line
   return (
     <div>
       <Header />

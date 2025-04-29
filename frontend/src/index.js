@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Checkout from "./pages/Checkout";
 import { CartProvider } from "./contexts/CartContext";
+import Preferences from "./pages/Preferences";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,12 +19,9 @@ root.render(
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/preferences" element={<Preferences />} />
         </Routes>
       </CartProvider>
     </Router>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
