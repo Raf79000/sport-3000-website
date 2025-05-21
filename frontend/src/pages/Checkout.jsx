@@ -141,9 +141,9 @@ const Checkout = () => {
                       <div key={index} className="checkout-item">
                         <div className="checkout-item-image">
                           <div className="placeholder-image">
-                            {item.img ? (
+                            {item.cover ? (
                               <img
-                                src={item.img}
+                                src={item.cover}
                                 alt={item.name}
                                 onError={(e) => {
                                   e.target.onerror = null;
