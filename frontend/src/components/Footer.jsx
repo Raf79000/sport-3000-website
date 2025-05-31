@@ -6,52 +6,72 @@ import "../styles/App.css";
 
 const Footer = () => {
   return (
-    <footer>
-      <div>
-        <div>
-          <img src={logoSrc} alt="Sport 3000 Logo" className="logo-image" />
-          <h3>Sport 3000</h3>
-          <p>Premium sports equipment for the modern athlete</p>
+    <footer id="main-footer">
+      <div className="footer-top">
+        {/* Logo & Tagline */}
+        <div className="footer-column footer-logo-section">
+          <img
+            src={logoSrc}
+            alt="Sport 3000 Logo"
+            className="footer-logo-image"
+          />
+          <h3 className="footer-site-title">Sport 3000</h3>
+          <p className="footer-tagline">
+            Premium sports equipment for the modern athlete
+          </p>
         </div>
 
-        <div>
-          <h3>Quick Links</h3>
-          <ul>
-            <li>
-              <Link to="/">Products</Link>
+        {/* Quick Links */}
+        <div className="footer-column footer-links-section">
+          <h3 className="footer-heading">Quick Links</h3>
+          <ul className="footer-links-list">
+            <li className="footer-link-item">
+              <Link to="/" className="footer-link">
+                Products
+              </Link>
             </li>
-            <li>
-              <Link to="/about">About Us</Link>
+            <li className="footer-link-item">
+              <Link to="/about" className="footer-link">
+                About Us
+              </Link>
             </li>
-            <li>
-              <Link to="/faq">FAQs</Link>
+            <li className="footer-link-item">
+              <Link to="/faq" className="footer-link">
+                FAQs
+              </Link>
             </li>
-            <li>
-              <Link to="/contact">Contact</Link>
+            <li className="footer-link-item">
+              <Link to="/contact" className="footer-link">
+                Contact
+              </Link>
             </li>
           </ul>
         </div>
 
-        <div>
-          <h3>Contact Us</h3>
-          <p>Email: info@sport3000.com</p>
-          <p>Phone: +123 456 789</p>
-          <div>
-            <a href="#">
+        {/* Contact Information */}
+        <div className="footer-column footer-contact-section">
+          <h3 className="footer-heading">Contact Us</h3>
+          <p className="footer-contact-text">Email: info@sport3000.com</p>
+          <p className="footer-contact-text">Phone: +123 456 789</p>
+          <div className="footer-social-links">
+            <a href="#" className="footer-social-link" aria-label="Facebook">
               FB
             </a>
-            <a href="#">
+            <a href="#" className="footer-social-link" aria-label="Instagram">
               IG
             </a>
-            <a href="#">
+            <a href="#" className="footer-social-link" aria-label="Twitter">
               TW
             </a>
           </div>
         </div>
       </div>
 
-      <div>
-        <p>&copy; 2025 Sport 3000 - All rights reserved</p>
+      {/* Bottom Bar */}
+      <div className="footer-bottom">
+        <p className="footer-copy">
+          &copy; 2025 Sport 3000 - All rights reserved
+        </p>
       </div>
     </footer>
   );

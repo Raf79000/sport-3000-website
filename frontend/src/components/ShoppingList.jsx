@@ -51,12 +51,13 @@ function ShoppingList() {
   });
 
   return (
-    <div>
-      <header>
-        <h2>Sport 3000 Products</h2>
+    <div id="shoppinglist-container" className="shoppinglist-container">
+      <header id="shoppinglist-header" className="shoppinglist-header">
+        <h2 className="shoppinglist-title">Sport 3000 Products</h2>
       </header>
-      <main>
-        <div className="search-sort-bar flex" style={{ gap: "1rem", marginBottom: "1rem" }}>
+
+      <main id="shoppinglist-main" className="shoppinglist-main">
+        <div className="search-sort-bar">
           <input
             type="text"
             placeholder="Search items..."
@@ -64,21 +65,26 @@ function ShoppingList() {
             onChange={handleSearchChange}
             className="search-input"
           />
-          <div>
-            <label>
-              Sort by:{" "}
-              <select value={sortOption} onChange={handleSortChange}>
-                <option value="priceLowToHigh">Price: Low to High</option>
-                <option value="priceHighToLow">Price: High to Low</option>
-                <option value="nameAZ">Name: A → Z</option>
-                <option value="nameZA">Name: Z → A</option>
-                <option value="onSaleFirst">On Sale First</option>
-              </select>
+          <div className="sort-container">
+            <label htmlFor="sort-select" className="sort-label">
+              Sort by:
             </label>
+            <select
+              id="sort-select"
+              value={sortOption}
+              onChange={handleSortChange}
+              className="sort-select"
+            >
+              <option value="priceLowToHigh">Price: Low to High</option>
+              <option value="priceHighToLow">Price: High to Low</option>
+              <option value="nameAZ">Name: A → Z</option>
+              <option value="nameZA">Name: Z → A</option>
+              <option value="onSaleFirst">On Sale First</option>
+            </select>
           </div>
         </div>
 
-        <div>
+        <section id="items-grid" className="items-grid">
           {sortedItems.map((item) => (
             <Item
               key={item.id}
@@ -93,7 +99,7 @@ function ShoppingList() {
               onAddToCart={() => addToCart(item)}
             />
           ))}
-        </div>
+        </section>
       </main>
       {/* Footer is included at application level */}
     </div>

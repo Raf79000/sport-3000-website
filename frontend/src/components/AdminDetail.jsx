@@ -37,6 +37,8 @@ export default function AdminItemsPage() {
       salesPrice: "",
       coverFile: null,
     });
+    // Clear file preview when resetting
+    if (fileInputRef.current) fileInputRef.current.value = null;
   }
 
   function handleChange(e) {
@@ -81,6 +83,9 @@ export default function AdminItemsPage() {
     const res = await fetch(url, {
       method,
       body: data,
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+      },
     });
 
     if (res.ok) {
@@ -101,6 +106,8 @@ export default function AdminItemsPage() {
       salesPrice: item.salesPrice || "",
       coverFile: null,
     });
+    // Reset file input preview
+    if (fileInputRef.current) fileInputRef.current.value = null;
     window.scrollTo(0, 0);
   }
 
@@ -115,49 +122,52 @@ export default function AdminItemsPage() {
   }
 
   return (
-    <div>
-      <header>
-        <h1>🛠️ Admin: Manage Items</h1>
+    <div id="admin-container" className="admin-container">
+      <header id="admin-header" className="admin-header">
+        <h1 className="admin-title">🛠️ Admin: Manage Items</h1>
       </header>
 
-      <form onSubmit={handleSubmit}>
-        <h2>{form.id ? "Edit Item" : "New Item"}</h2>
+      <form id="admin-form" className="admin-form" onSubmit={handleSubmit}>
+        <h2 className="section-title">{form.id ? "Edit Item" : "New Item"}</h2>
 
-        <div>
-          <label>Name</label>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
           <input
+            id="name"
             name="name"
             value={form.name}
             onChange={handleChange}
             required
-            className="w-full bg-input-bg border border-input-border rounded-md p-sm text-text-color"
+            className="form-input"
           />
         </div>
 
-        <div>
-          <label>Price</label>
+        <div className="form-group">
+          <label htmlFor="price">Price</label>
           <input
+            id="price"
             name="price"
             type="number"
             step="0.01"
             value={form.price}
             onChange={handleChange}
             required
-            className="w-full bg-input-bg border border-input-border rounded-md p-sm text-text-color"
+            className="form-input"
           />
         </div>
 
         <div
+          id="file-drop-area"
+          className="file-drop-area"
           onDragOver={handleDragOver}
           onDrop={handleFileDrop}
           onClick={() => fileInputRef.current.click()}
-          className="mb-md p-md border-2 border-border-color rounded-md text-center text-text-muted cursor-pointer"
         >
           {form.coverFile ? (
             <img
               src={URL.createObjectURL(form.coverFile)}
               alt="Preview"
-              className="max-h-24 mx-auto"
+              className="file-preview"
             />
           ) : (
             <p>Drag & drop image here, or click to select</p>
@@ -171,92 +181,99 @@ export default function AdminItemsPage() {
           />
         </div>
 
-        <div>
-          <label>Description</label>
-          <input
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
             name="description"
             value={form.description}
             onChange={handleChange}
-            className="w-full bg-input-bg border border-input-border rounded-md p-sm text-text-color"
+            rows="3"
+            className="form-input"
           />
         </div>
 
-        <div>
+        <div className="form-group checkbox-group">
           <input
             type="checkbox"
             name="onSale"
             checked={form.onSale}
             onChange={handleChange}
             id="onSale"
-            className="mr-xs"
+            className="form-checkbox"
           />
           <label htmlFor="onSale">On Sale</label>
         </div>
 
         {form.onSale && (
-          <div>
-            <label>Sales Price</label>
+          <div className="form-group">
+            <label htmlFor="salesPrice">Sales Price</label>
             <input
+              id="salesPrice"
               name="salesPrice"
               type="number"
               step="0.01"
               value={form.salesPrice}
               onChange={handleChange}
               required
-              className="w-full bg-input-bg border border-input-border rounded-md p-sm text-text-color"
+              className="form-input"
             />
           </div>
         )}
 
-        <button type="submit">
-          Save Item
-        </button>
-        <button
-          type="button"
-          onClick={resetForm}
-          className="btn btn-secondary mt-md ml-sm"
-        >
-          Reset
-        </button>
+        <div className="form-actions">
+          <button type="submit" className="btn btn-primary">
+            Save Item
+          </button>
+          <button
+            type="button"
+            onClick={resetForm}
+            className="btn btn-secondary"
+          >
+            Reset
+          </button>
+        </div>
       </form>
 
-      <section>
-        <h2>Items List</h2>
-        <div>
+      <section id="items-section" className="items-section">
+        <h2 className="section-title">Items List</h2>
+
+        <div className="items-list">
           {items.length > 0 ? (
             items.map((item) => (
-              <div key={item.id}>
-                <div>
-                  <div>
-                    <p>
-                      <strong>#{item.id}</strong> – {item.name} – ${item.price}{" "}
-                      {item.onSale ? `(Sale: ${item.salesPrice})` : ""}
-                    </p>
-                  </div>
-                  <div>
-                    <button
-                      onClick={() => startEditing(item)}
-                      className="btn btn-secondary text-sm"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="btn btn-delete text-sm"
-                    >
-                      Delete
-                    </button>
-                  </div>
+              <div key={item.id} className="item-row">
+                <div className="item-details">
+                  <p>
+                    <strong>#{item.id}</strong> – {item.name} – ${item.price}{" "}
+                    {item.onSale ? `(Sale: ${item.salesPrice})` : ""}
+                  </p>
+                </div>
+                <div className="item-actions">
+                  <button
+                    onClick={() => startEditing(item)}
+                    className="btn btn-secondary btn-sm"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="btn btn-delete btn-sm"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))
           ) : (
-            <p>No items found</p>
+            <p className="no-items-text">No items found</p>
           )}
         </div>
-        <button onClick={fetchItems}>
-          Refresh Items
-        </button>
+
+        <div className="refresh-container">
+          <button onClick={fetchItems} className="btn btn-primary">
+            Refresh Items
+          </button>
+        </div>
       </section>
     </div>
   );

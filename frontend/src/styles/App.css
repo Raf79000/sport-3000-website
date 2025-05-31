@@ -1,0 +1,1457 @@
+/* ==============================
+   App.css (Full Updated Version with Vibrant Colors + Admin + ShoppingList Styles)
+   ============================== */
+
+/* ---------------------------------------------------
+   0. COLOR VARIABLES (Overrides or Supplements index.css)
+   --------------------------------------------------- */
+:root {
+  /* Backgrounds & Surfaces */
+  --color-bg: #f0faff;
+  /* Very light cyan background */
+  --color-surface: #ffffff;
+  /* Pure white for cards, header, footer */
+
+  /* Primary/Secondary/Accent */
+  --color-primary: #3498db;
+  /* Bright vivid blue */
+  --color-primary-hover: #2980b9;
+  /* Deeper blue on hover */
+  --color-secondary: #2ecc71;
+  /* Vivid green for highlights */
+  --color-secondary-hover: #27ae60;
+  /* Deeper green on hover */
+  --color-accent: #e74c3c;
+  /* Bold red for important accents */
+  --color-accent-hover: #c0392b;
+  /* Deeper red on hover */
+
+  /* Borders & Text */
+  --color-border: #dfe6e9;
+  /* Light gray-blue for borders */
+  --color-text: #2c3e50;
+  /* Dark blue-gray for primary text */
+  --color-text-light: #4f5b66;
+  /* Medium gray for secondary text */
+
+  /* Typography */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------------------------------------------------
+     1. ROOT APPLICATION WRAPPER
+     --------------------------------------------------- */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ---------------------------------------------------
+     2. HEADER
+     --------------------------------------------------- */
+#main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Logo + Title Wrapper */
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Logo Image */
+.logo-image {
+  width: 40px;
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+}
+
+/* Site Title */
+.site-title a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.site-title a:hover,
+.site-title a:focus {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* Navigation List */
+.main-nav .nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+/* Individual Nav Item (for potential badges/dropdowns) */
+.nav-item {
+  position: relative;
+}
+
+/* Nav Link */
+.nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-light);
+  text-decoration: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+}
+
+/* Cart Icon Link */
+.cart-link {
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  transition: color 0.2s ease-in-out;
+}
+
+.cart-link:hover,
+.cart-link:focus {
+  color: var(--color-primary);
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+  background-color: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--color-text-light);
+  padding: var(--spacing-xs) var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.dark-mode-toggle:hover,
+.dark-mode-toggle:focus {
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+}
+
+/* ---------------------------------------------------
+     3. MAIN CONTENT AREA
+     --------------------------------------------------- */
+main {
+  flex: 1;
+  padding: var(--spacing-lg);
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* ---------------------------------------------------
+     4. SECTIONS & ARTICLES
+     --------------------------------------------------- */
+section {
+  margin-bottom: var(--spacing-xl);
+}
+
+article {
+  background-color: var(--color-surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+article h2 {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-secondary);
+}
+
+article p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-light);
+}
+
+/* ---------------------------------------------------
+     5. CARD COMPONENT (for “detail” blocks)
+     --------------------------------------------------- */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: var(--spacing-md);
+  background-color: var(--color-bg);
+}
+
+.card-content h3 {
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.25rem;
+  color: var(--color-accent);
+}
+
+.card-content p {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ---------------------------------------------------
+     6. BUTTON VARIANTS
+     --------------------------------------------------- */
+button.primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+button.primary:hover,
+button.primary:focus {
+  background-color: var(--color-primary-hover);
+}
+
+button.secondary {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+}
+
+button.secondary:hover,
+button.secondary:focus {
+  background-color: var(--color-secondary-hover);
+}
+
+button.accent {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+button.accent:hover,
+button.accent:focus {
+  background-color: var(--color-accent-hover);
+}
+
+button.outline {
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+button.outline:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------
+     7. FORMS & FORM CONTAINERS
+     --------------------------------------------------- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+form label {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+form textarea {
+  resize: vertical;
+}
+
+/* ---------------------------------------------------
+     8. NAVIGATION & SIDEBAR (if needed)
+     --------------------------------------------------- */
+nav.sidebar {
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+nav.sidebar a {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+}
+
+nav.sidebar a:hover,
+nav.sidebar a:focus {
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+}
+
+/* ---------------------------------------------------
+     9. FOOTER
+     --------------------------------------------------- */
+/* 9.1 Entire Footer Container */
+#main-footer {
+  background-color: var(--color-surface);
+  color: var(--color-text-light);
+  padding: var(--spacing-lg) var(--spacing-lg);
+  border-top: 2px solid var(--color-border);
+}
+
+/* 9.2 Top Section Layout */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+/* 9.3 Individual Columns */
+.footer-column {
+  flex: 1 1 240px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* 9.4 Logo Section */
+.footer-logo-section .footer-logo-image {
+  width: 60px;
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.footer-logo-section .footer-logo-image:hover {
+  transform: scale(1.1);
+}
+
+.footer-logo-section .footer-site-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: var(--spacing-sm);
+}
+
+.footer-logo-section .footer-tagline {
+  font-size: 1rem;
+  color: var(--color-text-light);
+  margin-top: var(--spacing-xs);
+}
+
+/* 9.5 Section Headings */
+.footer-heading {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* 9.6 Quick Links List */
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-link-item {
+  margin-bottom: var(--spacing-xs);
+}
+
+.footer-link {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: var(--color-surface);
+  background-color: var(--color-secondary);
+}
+
+/* 9.7 Contact Text */
+.footer-contact-text {
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-light);
+}
+
+/* 9.8 Social Links */
+.footer-social-links {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.footer-social-link:hover,
+.footer-social-link:focus {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+}
+
+/* 9.9 Bottom Bar */
+.footer-bottom {
+  margin-top: var(--spacing-lg);
+  border-top: 2px solid var(--color-border);
+  padding-top: var(--spacing-md);
+  text-align: center;
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+/* ---------------------------------------------------
+     10. RESPONSIVE ADJUSTMENTS
+     --------------------------------------------------- */
+@media (max-width: 768px) {
+
+  /* Header stacks vertically */
+  #main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .main-nav .nav-list {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 100%;
+  }
+
+  .nav-link,
+  .dark-mode-toggle {
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Main padding reduction */
+  main {
+    padding: var(--spacing-md);
+  }
+
+  /* Footer columns stack */
+  .footer-top {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------------------------------------------------
+     11. DARK MODE OVERRIDES
+     --------------------------------------------------- */
+/* Dark Mode Color Variables */
+body.dark-mode {
+  --color-bg: #1a1f26;
+  /* Very dark blue-gray */
+  --color-surface: #2c3e50;
+  /* Dark muted blue */
+  --color-primary: #2980b9;
+  /* Deep blue */
+  --color-primary-hover: #1f6092;
+  /* Even deeper blue */
+  --color-secondary: #27ae60;
+  /* Deep green */
+  --color-secondary-hover: #1e8449;
+  /* Darker green */
+  --color-accent: #c0392b;
+  /* Deep red */
+  --color-accent-hover: #96281b;
+  /* Darker red */
+  --color-border: #34495e;
+  /* Dark border */
+  --color-text: #ecf0f1;
+  /* Light gray text */
+  --color-text-light: #bdc3c7;
+  /* Medium light gray */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Header Dark Mode */
+body.dark-mode #main-header {
+  background-color: var(--color-surface);
+  box-shadow: none;
+}
+
+body.dark-mode .site-title a {
+  color: var(--color-primary);
+}
+
+body.dark-mode .site-title a:hover,
+body.dark-mode .site-title a:focus {
+  color: var(--color-primary-hover);
+}
+
+body.dark-mode .nav-link {
+  color: var(--color-text-light);
+}
+
+body.dark-mode .nav-link:hover,
+body.dark-mode .nav-link:focus {
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+}
+
+body.dark-mode .cart-link {
+  color: var(--color-text-light);
+}
+
+body.dark-mode .cart-link:hover,
+body.dark-mode .cart-link:focus {
+  color: var(--color-primary);
+}
+
+body.dark-mode .dark-mode-toggle {
+  color: var(--color-text-light);
+}
+
+body.dark-mode .dark-mode-toggle:hover,
+body.dark-mode .dark-mode-toggle:focus {
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+}
+
+/* Main & Articles Dark Mode */
+body.dark-mode main {
+  background-color: var(--color-bg);
+}
+
+body.dark-mode article {
+  background-color: var(--color-surface);
+  box-shadow: none;
+}
+
+body.dark-mode article h2 {
+  color: var(--color-secondary);
+}
+
+body.dark-mode article p {
+  color: var(--color-text-light);
+}
+
+/* Card Dark Mode */
+body.dark-mode .card {
+  background-color: var(--color-surface);
+  box-shadow: none;
+}
+
+body.dark-mode .card-content {
+  background-color: var(--color-bg);
+}
+
+body.dark-mode .card-content h3 {
+  color: var(--color-accent);
+}
+
+body.dark-mode .card-content p {
+  color: var(--color-text-light);
+}
+
+/* Button Dark Mode */
+body.dark-mode button.primary {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+body.dark-mode button.primary:hover,
+body.dark-mode button.primary:focus {
+  background-color: var(--color-primary-hover);
+}
+
+body.dark-mode button.secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-surface);
+}
+
+body.dark-mode button.secondary:hover,
+body.dark-mode button.secondary:focus {
+  background-color: var(--color-secondary-hover);
+}
+
+body.dark-mode button.accent {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+}
+
+body.dark-mode button.accent:hover,
+body.dark-mode button.accent:focus {
+  background-color: var(--color-accent-hover);
+}
+
+body.dark-mode button.outline {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+body.dark-mode button.outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+/* Form Dark Mode */
+body.dark-mode form input,
+body.dark-mode form select,
+body.dark-mode form textarea {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+body.dark-mode form input:focus,
+body.dark-mode form textarea:focus,
+body.dark-mode form select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.3);
+}
+
+/* Sidebar Dark Mode */
+body.dark-mode nav.sidebar {
+  background-color: var(--color-surface);
+}
+
+body.dark-mode nav.sidebar a {
+  color: var(--color-text-light);
+}
+
+body.dark-mode nav.sidebar a:hover,
+body.dark-mode nav.sidebar a:focus {
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+}
+
+/* Footer Dark Mode */
+body.dark-mode #main-footer {
+  background-color: var(--color-surface);
+  border-top-color: var(--color-border);
+}
+
+body.dark-mode .footer-site-title {
+  color: var(--color-primary);
+}
+
+body.dark-mode .footer-site-title:hover,
+body.dark-mode .footer-site-title:focus {
+  color: var(--color-primary-hover);
+}
+
+body.dark-mode .footer-heading {
+  color: var(--color-secondary);
+}
+
+body.dark-mode .footer-tagline,
+body.dark-mode .footer-contact-text,
+body.dark-mode .footer-link,
+body.dark-mode .footer-copy {
+  color: var(--color-text-light);
+}
+
+body.dark-mode .footer-link:hover,
+body.dark-mode .footer-link:focus {
+  color: var(--color-surface);
+  background-color: var(--color-secondary);
+}
+
+body.dark-mode .footer-social-link {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+body.dark-mode .footer-social-link:hover,
+body.dark-mode .footer-social-link:focus {
+  background-color: var(--color-primary-hover);
+}
+
+/* ---------------------------------------------------
+     12. ADMIN PAGE STYLES
+     --------------------------------------------------- */
+
+/* A. CONTAINER & SECTION TITLES */
+#admin-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.section-title {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-secondary);
+}
+
+/* B. HEADER */
+#admin-header {
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.admin-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* C. FORM */
+#admin-form {
+  background-color: var(--color-surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
+}
+
+.form-checkbox {
+  margin-right: var(--spacing-xs);
+  width: 1rem;
+  height: 1rem;
+}
+
+.form-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+/* File Drop / Preview Area */
+#file-drop-area {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+#file-drop-area:hover,
+#file-drop-area:focus {
+  background-color: #eaf6ff;
+  /* Very pale blue */
+  border-color: var(--color-primary);
+}
+
+.file-preview {
+  max-height: 120px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Form Actions (Buttons) */
+.form-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+/* D. ITEMS LIST */
+#items-section {
+  background-color: var(--color-surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.items-list {
+  margin-top: var(--spacing-md);
+}
+
+/* Single Item Row */
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.item-row:last-child {
+  border-bottom: none;
+}
+
+.item-details p {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.item-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+/* "No items found" text */
+.no-items-text {
+  color: var(--color-text-light);
+  text-align: center;
+  margin: var(--spacing-md) 0;
+}
+
+/* Refresh Button Container */
+.refresh-container {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+}
+
+/* E. BUTTONS (Admin Variants) */
+.btn {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+/* Primary / Save / Refresh */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--color-primary-hover);
+}
+
+/* Secondary / Edit / Reset */
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: var(--color-secondary-hover);
+}
+
+/* Delete Button */
+.btn-delete {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+.btn-delete:hover,
+.btn-delete:focus {
+  background-color: var(--color-accent-hover);
+}
+
+/* Small Button Variant */
+.btn-sm {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 0.875rem;
+}
+
+/* ---------------------------------------------------
+     13. SHOPPING LIST PAGE STYLES
+     --------------------------------------------------- */
+#shopping-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+#shopping-header {
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.shopping-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Search + Sort Bar */
+.search-sort-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-input {
+  flex: 1 1 200px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+/* Sort Controls */
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.sort-label {
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.sort-select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.3);
+}
+
+/* Items Grid */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+/* ---------------------------------------------------
+     14. RESPONSIVE ADJUSTMENTS FOR SHOPPING LIST
+     --------------------------------------------------- */
+@media (max-width: 768px) {
+  .search-sort-bar {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .search-input,
+  .sort-select {
+    width: 100%;
+  }
+}
+
+/* ---------------------------------------------------
+     15. RESPONSIVE ADJUSTMENTS FOR ADMIN PAGE
+     --------------------------------------------------- */
+@media (max-width: 600px) {
+  #admin-container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  #admin-form,
+  #items-section {
+    padding: var(--spacing-md);
+  }
+
+  .item-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .item-actions {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: var(--spacing-xs);
+  }
+}
+
+/* ---------------------------------------------------
+     16. DARK MODE OVERRIDES for Admin & ShoppingList
+     --------------------------------------------------- */
+body.dark-mode #admin-container {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+body.dark-mode #admin-header .admin-title {
+  color: var(--color-primary);
+}
+
+body.dark-mode #admin-form {
+  background-color: var(--color-surface);
+  box-shadow: none;
+}
+
+body.dark-mode .form-group label,
+body.dark-mode .form-input,
+body.dark-mode .form-checkbox {
+  color: var(--color-text);
+}
+
+body.dark-mode .form-input {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+body.dark-mode #file-drop-area {
+  background-color: var(--color-bg);
+  border-color: var(--color-border);
+  color: var(--color-text-light);
+}
+
+body.dark-mode #file-drop-area:hover,
+body.dark-mode #file-drop-area:focus {
+  background-color: #22313f;
+  /* Darker tint */
+  border-color: var(--color-primary);
+}
+
+body.dark-mode #items-section {
+  background-color: var(--color-surface);
+  box-shadow: none;
+}
+
+body.dark-mode .item-row {
+  border-bottom: 1px solid var(--color-border);
+}
+
+body.dark-mode .item-details p {
+  color: var(--color-text);
+}
+
+body.dark-mode .no-items-text {
+  color: var(--color-text-light);
+}
+
+body.dark-mode .btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+body.dark-mode .btn-primary:hover,
+body.dark-mode .btn-primary:focus {
+  background-color: var(--color-primary-hover);
+}
+
+body.dark-mode .btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-surface);
+}
+
+body.dark-mode .btn-secondary:hover,
+body.dark-mode .btn-secondary:focus {
+  background-color: var(--color-secondary-hover);
+}
+
+body.dark-mode .btn-delete {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+}
+
+body.dark-mode .btn-delete:hover,
+body.dark-mode .btn-delete:focus {
+  background-color: var(--color-accent-hover);
+}
+
+/* ShoppingList Dark Mode */
+body.dark-mode #shopping-container {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+body.dark-mode #shopping-header .shopping-title {
+  color: var(--color-primary);
+}
+
+body.dark-mode .search-input {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+body.dark-mode .search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.3);
+}
+
+body.dark-mode .sort-select {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+body.dark-mode .sort-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.3);
+}
+
+body.dark-mode .items-grid {
+  /* grid background remains transparent */
+}
+
+body.dark-mode .shopping-container {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* About page styles */
+
+/* Container */
+#about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Header */
+.about-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.about-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.header-divider {
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-secondary);
+  margin: var(--spacing-sm) auto 0;
+}
+
+/* Section common */
+.about-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Paragraph utility */
+.paragraph {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-light);
+  line-height: 1.8;
+}
+
+/* Mission section */
+.section-content {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.mission-text {
+  flex: 1 1 400px;
+}
+
+.mission-image {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-light);
+}
+
+/* Values section */
+.values-grid {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.value-item {
+  flex: 1 1 250px;
+  background-color: var(--color-surface);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.value-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-primary);
+}
+
+.subheading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Team section */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.team-member {
+  background-color: var(--color-surface);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.member-photo {
+  width: 100px;
+  height: 100px;
+  background-color: var(--color-border);
+  border-radius: 50%;
+  margin: 0 auto var(--spacing-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-light);
+}
+
+/* Visit section */
+.visit-grid {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
+}
+
+.address {
+  flex: 1 1 300px;
+  font-size: 1rem;
+  color: var(--color-text-light);
+}
+
+.map-container {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+  .section-content,
+  .visit-grid {
+    flex-direction: column;
+  }
+
+  .values-grid {
+    flex-direction: column;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark mode overrides for About page */
+body.dark-mode #about-container {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+body.dark-mode .about-title {
+  color: var(--color-primary);
+}
+
+body.dark-mode .header-divider {
+  background-color: var(--color-secondary-hover);
+}
+
+body.dark-mode .value-item,
+body.dark-mode .team-member {
+  background-color: var(--color-surface);
+  box-shadow: none;
+}
+
+body.dark-mode .value-icon,
+body.dark-mode .subheading,
+body.dark-mode .section-heading {
+  color: var(--color-secondary);
+}
+
+body.dark-mode .paragraph,
+body.dark-mode .address {
+  color: var(--color-text-light);
+}
+
+body.dark-mode .image-placeholder,
+body.dark-mode .map-placeholder {
+  background-color: var(--color-border);
+  color: var(--color-text-light);
+}

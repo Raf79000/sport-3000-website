@@ -1,0 +1,295 @@
+/* ==============================
+   index.css (Full Updated Version with Vibrant Variables & Base Styles)
+   ============================== */
+
+/* ---------------------------------------------------
+   1. RESET & BOX-SIZING
+   --------------------------------------------------- */
+   *,
+   *::before,
+   *::after {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+   
+   /* ---------------------------------------------------
+      2. ROOT VARIABLES (Vibrant Palette)
+      --------------------------------------------------- */
+   :root {
+     /* Backgrounds & Surfaces */
+     --color-bg: #f0faff;            /* Very light cyan background */
+     --color-surface: #ffffff;       /* Pure white for cards, header, footer */
+   
+     /* Primary/Secondary/Accent */
+     --color-primary: #3498db;       /* Bright vivid blue */
+     --color-primary-hover: #2980b9; /* Deeper blue on hover */
+     --color-secondary: #2ecc71;     /* Vivid green for highlights */
+     --color-secondary-hover: #27ae60;/* Deeper green on hover */
+     --color-accent: #e74c3c;        /* Bold red for important accents */
+     --color-accent-hover: #c0392b;  /* Deeper red on hover */
+   
+     /* Text & Borders */
+     --color-text: #2c3e50;          /* Dark blue-gray for primary text */
+     --color-text-light: #4f5b66;    /* Medium gray for secondary text */
+     --color-border: #dfe6e9;        /* Light gray-blue for borders */
+   
+     /* Typography */
+     --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+       Roboto, 'Helvetica Neue', Arial, sans-serif;
+     --font-size-base: 16px;
+     --line-height-base: 1.6;
+   
+     /* Spacing */
+     --spacing-xs: 4px;
+     --spacing-sm: 8px;
+     --spacing-md: 16px;
+     --spacing-lg: 24px;
+     --spacing-xl: 32px;
+   
+     /* Border Radius */
+     --radius-sm: 4px;
+     --radius-md: 8px;
+     --radius-lg: 16px;
+   
+     /* Shadows */
+     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+   }
+   
+   /* ---------------------------------------------------
+      3. BASE ELEMENT STYLES
+      --------------------------------------------------- */
+   html {
+     font-family: var(--font-family-sans);
+     font-size: var(--font-size-base);
+     line-height: var(--line-height-base);
+     background-color: var(--color-bg);
+     color: var(--color-text);
+     scroll-behavior: smooth;
+   }
+   
+   body {
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+     background-color: var(--color-bg);
+     color: var(--color-text);
+   }
+   
+   /* HEADINGS */
+   h1, h2, h3, h4, h5, h6 {
+     color: var(--color-text);
+     line-height: 1.2;
+     margin-bottom: var(--spacing-sm);
+     font-weight: 600;
+   }
+   h1 { font-size: 2.5rem; }
+   h2 { font-size: 2rem; }
+   h3 { font-size: 1.75rem; }
+   h4 { font-size: 1.5rem; }
+   h5 { font-size: 1.25rem; }
+   h6 { font-size: 1rem; }
+   
+   /* PARAGRAPHS & TEXT */
+   p {
+     margin-bottom: var(--spacing-md);
+     color: var(--color-text-light);
+     line-height: 1.8;
+   }
+   
+   /* LINKS */
+   a {
+     color: var(--color-primary);
+     text-decoration: none;
+     transition: color 0.2s ease-in-out;
+   }
+   a:hover,
+   a:focus {
+     color: var(--color-primary-hover);
+     text-decoration: underline;
+   }
+   
+   /* IMAGES & MEDIA */
+   img,
+   picture,
+   svg {
+     max-width: 100%;
+     height: auto;
+     display: block;
+   }
+   
+   /* LISTS */
+   ul,
+   ol {
+     margin-bottom: var(--spacing-md);
+     padding-left: var(--spacing-lg);
+   }
+   li {
+     margin-bottom: var(--spacing-xs);
+   }
+   
+   /* FORMS */
+   input,
+   select,
+   textarea {
+     font-family: inherit;
+     font-size: 1rem;
+     padding: var(--spacing-sm);
+     border: 1px solid var(--color-border);
+     border-radius: var(--radius-sm);
+     background-color: var(--color-surface);
+     color: var(--color-text);
+     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+   }
+   input:focus,
+   textarea:focus,
+   select:focus {
+     outline: none;
+     border-color: var(--color-primary);
+     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+   }
+   textarea {
+     resize: vertical;
+   }
+   
+   /* BUTTONS */
+   button {
+     cursor: pointer;
+     font-family: inherit;
+     font-size: 1rem;
+     padding: var(--spacing-sm) var(--spacing-md);
+     border: none;
+     border-radius: var(--radius-md);
+     background-color: var(--color-primary);
+     color: #ffffff;
+     transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+   }
+   button:hover,
+   button:focus {
+     background-color: var(--color-primary-hover);
+   }
+   button:active {
+     transform: scale(0.98);
+   }
+   button:disabled {
+     background-color: var(--color-border);
+     cursor: not-allowed;
+   }
+   
+   /* TABLES */
+   table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-bottom: var(--spacing-lg);
+     background-color: var(--color-surface);
+     box-shadow: var(--shadow-sm);
+   }
+   th,
+   td {
+     padding: var(--spacing-sm) var(--spacing-md);
+     border-bottom: 1px solid var(--color-border);
+     text-align: left;
+   }
+   th {
+     background-color: var(--color-bg);
+     font-weight: 600;
+   }
+   
+   /* MISCELLANEOUS */
+   hr {
+     border: none;
+     height: 1px;
+     background-color: var(--color-border);
+     margin: var(--spacing-lg) 0;
+   }
+   blockquote {
+     margin: var(--spacing-lg) 0;
+     padding: var(--spacing-md) var(--spacing-lg);
+     border-left: 4px solid var(--color-secondary);
+     background-color: #ecfef1; /* Very light green tint */
+     font-style: italic;
+   }
+   pre {
+     background-color: #1e1e1e;
+     color: #f5f5f5;
+     padding: var(--spacing-md);
+     border-radius: var(--radius-md);
+     overflow-x: auto;
+   }
+   code {
+     background-color: #eaeaea;
+     padding: 0 var(--spacing-xs);
+     border-radius: var(--radius-sm);
+     font-family: 'Source Code Pro', monospace;
+     font-size: 0.95rem;
+   }
+   
+   /* ---------------------------------------------------
+      4. DARK MODE BASE OVERRIDES
+      --------------------------------------------------- */
+   body.dark-mode {
+     background-color: #1a1f26;        /* Very dark blue-gray */
+     color: #ecf0f1;                   /* Light gray text */
+   }
+   
+   /* Links in Dark Mode */
+   body.dark-mode a {
+     color: var(--color-primary);
+   }
+   body.dark-mode a:hover,
+   body.dark-mode a:focus {
+     color: var(--color-primary-hover);
+   }
+   
+   /* Form elements in Dark Mode */
+   body.dark-mode input,
+   body.dark-mode select,
+   body.dark-mode textarea {
+     background-color: #2c3e50;        /* Dark surface */
+     color: #ecf0f1;
+     border: 1px solid #34495e;        /* Dark border */
+   }
+   body.dark-mode input:focus,
+   body.dark-mode textarea:focus,
+   body.dark-mode select:focus {
+     border-color: var(--color-primary);
+     box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.3);
+   }
+   
+   /* HR, Blockquote, Code in Dark Mode */
+   body.dark-mode hr {
+     background-color: #34495e;
+   }
+   body.dark-mode blockquote {
+     border-left-color: var(--color-secondary);
+     background-color: #22313f; /* Dark green-blue tint */
+     color: #bdc3c7;
+   }
+   body.dark-mode code {
+     background-color: #2c3e50;
+     color: #ecf0f1;
+   }
+   
+   /* ---------------------------------------------------
+      5. UTILITY CLASSES (OPTIONAL)
+      --------------------------------------------------- */
+   .hidden {
+     display: none !important;
+   }
+   .visible {
+     display: block !important;
+   }
+   .text-center {
+     text-align: center !important;
+   }
+   .mt-1 { margin-top: var(--spacing-xs); }
+   .mt-2 { margin-top: var(--spacing-sm); }
+   .mt-3 { margin-top: var(--spacing-md); }
+   .mt-4 { margin-top: var(--spacing-lg); }
+   .pb-1 { padding-bottom: var(--spacing-xs); }
+   .pb-2 { padding-bottom: var(--spacing-sm); }
+   .pb-3 { padding-bottom: var(--spacing-md); }
+   .pb-4 { padding-bottom: var(--spacing-lg); }
+   

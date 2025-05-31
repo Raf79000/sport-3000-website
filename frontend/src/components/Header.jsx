@@ -1,49 +1,69 @@
-// Header.jsx
-import React, { useState } from "react";
+// src/components/Header.jsx
+import React from "react";
 import { Link } from "react-router-dom";
 import { TiShoppingCart } from "react-icons/ti";
 import { MdOutlineDarkMode } from "react-icons/md";
 import logoSrc from "../sport_3000_logo.svg";
 import "../styles/App.css";
 
+// Import the usePreferences hook:
+import { usePreferences } from "../contexts/PreferencesContext";
+
 const Header = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle("dark-mode", !darkMode);
-  };
+  // Pull darkMode & toggleDarkMode from context
+  const { darkMode, toggleDarkMode } = usePreferences();
+
   return (
-    <header>
-      <div>
-        <img src={logoSrc} alt="Sport 3000 Logo" className="logo-image" />
-        <h1>
+    <header id="main-header">
+      <div className="header-container">
+        <img
+          src={logoSrc}
+          alt="Sport 3000 Logo"
+          className="logo-image"
+        />
+        <h1 className="site-title">
           <Link to="/">Sport 3000</Link>
         </h1>
       </div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Products</Link>
+
+      <nav className="main-nav">
+        <ul className="nav-list">
+          <li className="nav-item">
+            <Link to="/" className="nav-link">
+              Products
+            </Link>
           </li>
-          <li>
-            <Link to="/sales">Sales</Link>
+          <li className="nav-item">
+            <Link to="/sales" className="nav-link">
+              Sales
+            </Link>
           </li>
-          <li>
-            <Link to="/about">About</Link>
+          <li className="nav-item">
+            <Link to="/about" className="nav-link">
+              About
+            </Link>
           </li>
-          <li>
-            <Link to="/contact">Contact</Link>
+          <li className="nav-item">
+            <Link to="/contact" className="nav-link">
+              Contact
+            </Link>
           </li>
-          <li>
-            <Link to="/profile">Profile</Link>
+          <li className="nav-item">
+            <Link to="/profile" className="nav-link">
+              Profile
+            </Link>
           </li>
-          <li>
-            <Link to="/checkout">
+          <li className="nav-item">
+            <Link to="/checkout" className="nav-link cart-link">
               <TiShoppingCart />
             </Link>
           </li>
-          <li>
-            <button onClick={toggleDarkMode}>
+          <li className="nav-item">
+            <button
+              className="dark-mode-toggle"
+              onClick={toggleDarkMode}
+              aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+            >
               <MdOutlineDarkMode />
             </button>
           </li>

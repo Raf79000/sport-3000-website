@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
 import CheckoutNew from "./pages/CheckoutNew";
+import { PreferencesProvider } from "./contexts/PreferencesContext";
 import { CartProvider } from "./contexts/CartContext";
 import { CurrencySignProvider } from "./contexts/CurrencySignContext";
 import Preferences from "./pages/Preferences";
@@ -19,23 +20,25 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-      <CartProvider>
-        <CurrencySignProvider>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="*" element={<h1>Page not found</h1>} />
-          <Route path="/about" element={<About />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/checkout" element={<CheckoutNew />} />
-          <Route path="/detail/:itemId" element={<Detail />} />
-          <Route path="/preferences" element={<Preferences />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/sales" element={<Sales />} />
-        </Routes>
-        </CurrencySignProvider>
-      </CartProvider>
+      <PreferencesProvider>
+        <CartProvider>
+          <CurrencySignProvider>
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="*" element={<h1>Page not found</h1>} />
+              <Route path="/about" element={<About />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/checkout" element={<CheckoutNew />} />
+              <Route path="/detail/:itemId" element={<Detail />} />
+              <Route path="/preferences" element={<Preferences />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/sales" element={<Sales />} />
+            </Routes>
+          </CurrencySignProvider>
+        </CartProvider>
+      </PreferencesProvider>
     </Router>
   </React.StrictMode>
 );
