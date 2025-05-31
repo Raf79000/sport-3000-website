@@ -351,7 +351,8 @@ app.post("/orders", (req, res, next) => {
   db_connexion.query(
     `INSERT INTO orders
         (user_id, total_amount, payment_method)
-       VALUES (?, ?, ?)`,
+       VALUES (?, ?, ?);
+       SET @id = LAST_INSERT_ID();`,
     [customerId, totalAmount, paymentMethod],
     (err, result) => {
       if (err) return res.status(500).json(err);
@@ -363,6 +364,64 @@ app.post("/orders", (req, res, next) => {
   );
 });
 
+app.post("/orders/:id/items", (req, res, next) => {
+  const { orderId, itemId, quantity } = req.body;
+
+  if (!orderId || !itemId || !quantity) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  db_connexion.query(
+    `INSERT INTO ordersItems
+        (order_id, item_id, quantity, unit_price)
+       VALUES (?, ?, ?)`,
+    [req.params.id, itemId, quantity],
+    (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.status(201).json({
+        id: result.insertId,
+        message: "Order item created",
+      });
+    }
+  );
+});
+
+app.patch("/orders/:id/status", (req, res, next) => {
+  const { status } = req.body;
+
+  if (!status) {
+    return res.status(400).json({ error: "Status is required." });
+  }
+
+  db_connexion.query(
+    `UPDATE orders SET status = ? WHERE id = ?`,
+    [status, req.params.id],
+    (err, result) => {
+      if (err) return res.status(500).json(err);
+      if (result.affectedRows === 0)
+        return res.status(404).json({ error: "Not found" });
+      res.json({ message: "Order updated" });
+    }
+  );
+});
+
+app.patch("/orders/:id/total", (req, res, next) => {
+  db_connexion.query(
+    `UPDATE orders
+    SET total_amount = (
+      SELECT SUM(quantity * unit_price)
+      FROM ordersItems
+      WHERE order_id = ?
+    )
+    WHERE id = ?`,
+    [req.params.id, req.params.id],
+    (err, result) => {
+      if (err) return res.status(500).json(err);
+      if (result.affectedRows === 0)
+        return res.status(404).json({ error: "Not found" });
+      res.json({ message: "Order total updated" });
+    }
+  );
+});
+
 module.exports = app;
-
-
