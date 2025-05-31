@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Item from "../components/Item";
 import { useCart } from "../contexts/CartContext";
 import { useParams } from "react-router-dom";
+import "../styles/App.css";
 
 const Detail = () => {
   const { addToCart } = useCart();
@@ -36,6 +37,7 @@ const Detail = () => {
 
     fetchItemDetails();
   }, [itemId]);
+
   if (errorMessage) {
     return <div>Error: {errorMessage}</div>;
   }
@@ -43,22 +45,25 @@ const Detail = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
+
   return (
     <div>
       <Header />
-      {console.log(data.cover)}
-      <Item
-        key={data.id}
-        name={data.name}
-        price={data.price}
-        imageUrl={data.cover}
-        description={
-          data.description || "Premium sports equipment for athletes."
-        }
-        onSale={data.onSale}
-        salesPrice={data.salesPrice}
-        onAddToCart={() => addToCart(data)}
-      />
+      <main>
+        {console.log(data.cover)}
+        <Item
+          key={data.id}
+          name={data.name}
+          price={data.price}
+          imageUrl={data.cover}
+          description={
+            data.description || "Premium sports equipment for athletes."
+          }
+          onSale={data.onSale}
+          salesPrice={data.salesPrice}
+          onAddToCart={() => addToCart(data)}
+        />
+      </main>
       <Footer />
     </div>
   );

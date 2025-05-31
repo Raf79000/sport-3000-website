@@ -1,4 +1,6 @@
+// AdminDetail.jsx
 import React, { useState, useEffect, useRef } from "react";
+import "../styles/App.css";
 
 const API_BASE = "http://localhost:3000";
 
@@ -97,7 +99,7 @@ export default function AdminItemsPage() {
       description: item.description || "",
       onSale: item.onSale === 1,
       salesPrice: item.salesPrice || "",
-      coverFile: null, // user can drop a new one if they want
+      coverFile: null,
     });
     window.scrollTo(0, 0);
   }
@@ -113,57 +115,49 @@ export default function AdminItemsPage() {
   }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>🛠️ Admin: Manage Items</h1>
+    <div>
+      <header>
+        <h1>🛠️ Admin: Manage Items</h1>
+      </header>
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: 40 }}>
+      <form onSubmit={handleSubmit}>
         <h2>{form.id ? "Edit Item" : "New Item"}</h2>
 
         <div>
-          <label>
-            Name
-            <br />
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
+          <label>Name</label>
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            className="w-full bg-input-bg border border-input-border rounded-md p-sm text-text-color"
+          />
         </div>
 
         <div>
-          <label>
-            Price
-            <br />
-            <input
-              name="price"
-              type="number"
-              step="0.01"
-              value={form.price}
-              onChange={handleChange}
-              required
-            />
-          </label>
+          <label>Price</label>
+          <input
+            name="price"
+            type="number"
+            step="0.01"
+            value={form.price}
+            onChange={handleChange}
+            required
+            className="w-full bg-input-bg border border-input-border rounded-md p-sm text-text-color"
+          />
         </div>
 
         <div
           onDragOver={handleDragOver}
           onDrop={handleFileDrop}
           onClick={() => fileInputRef.current.click()}
-          style={{
-            border: "2px dashed #888",
-            padding: "1rem",
-            textAlign: "center",
-            cursor: "pointer",
-            margin: "1rem 0",
-          }}
+          className="mb-md p-md border-2 border-border-color rounded-md text-center text-text-muted cursor-pointer"
         >
           {form.coverFile ? (
             <img
               src={URL.createObjectURL(form.coverFile)}
               alt="Preview"
-              style={{ maxHeight: 100 }}
+              className="max-h-24 mx-auto"
             />
           ) : (
             <p>Drag & drop image here, or click to select</p>
@@ -178,87 +172,92 @@ export default function AdminItemsPage() {
         </div>
 
         <div>
-          <label>
-            Description
-            <br />
-            <input
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-            />
-          </label>
+          <label>Description</label>
+          <input
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            className="w-full bg-input-bg border border-input-border rounded-md p-sm text-text-color"
+          />
         </div>
 
         <div>
-          <label>
-            On Sale?
-            <input
-              name="onSale"
-              type="checkbox"
-              checked={form.onSale}
-              onChange={handleChange}
-            />
-          </label>
+          <input
+            type="checkbox"
+            name="onSale"
+            checked={form.onSale}
+            onChange={handleChange}
+            id="onSale"
+            className="mr-xs"
+          />
+          <label htmlFor="onSale">On Sale</label>
         </div>
 
         {form.onSale && (
           <div>
-            <label>
-              Sales Price
-              <br />
-              <input
-                name="salesPrice"
-                type="number"
-                step="0.01"
-                value={form.salesPrice}
-                onChange={handleChange}
-                required
-              />
-            </label>
+            <label>Sales Price</label>
+            <input
+              name="salesPrice"
+              type="number"
+              step="0.01"
+              value={form.salesPrice}
+              onChange={handleChange}
+              required
+              className="w-full bg-input-bg border border-input-border rounded-md p-sm text-text-color"
+            />
           </div>
         )}
 
-        <button type="submit">{form.id ? "Update Item" : "Create Item"}</button>
-        {form.id && (
-          <button type="button" onClick={resetForm} style={{ marginLeft: 10 }}>
-            Cancel
-          </button>
-        )}
+        <button type="submit">
+          Save Item
+        </button>
+        <button
+          type="button"
+          onClick={resetForm}
+          className="btn btn-secondary mt-md ml-sm"
+        >
+          Reset
+        </button>
       </form>
 
-      <h2>Current Items</h2>
-      <table border="1" cellPadding="8" cellSpacing="0">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>On Sale</th>
-            <th>Sales Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.price.toFixed(2)}</td>
-              <td>{item.onSale === 1 ? "Yes" : "No"}</td>
-              <td>{item.onSale === 1 ? item.salesPrice.toFixed(2) : "-"}</td>
-              <td>
-                <button onClick={() => startEditing(item)}>Edit</button>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  style={{ marginLeft: 8 }}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <section>
+        <h2>Items List</h2>
+        <div>
+          {items.length > 0 ? (
+            items.map((item) => (
+              <div key={item.id}>
+                <div>
+                  <div>
+                    <p>
+                      <strong>#{item.id}</strong> – {item.name} – ${item.price}{" "}
+                      {item.onSale ? `(Sale: ${item.salesPrice})` : ""}
+                    </p>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => startEditing(item)}
+                      className="btn btn-secondary text-sm"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="btn btn-delete text-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No items found</p>
+          )}
+        </div>
+        <button onClick={fetchItems}>
+          Refresh Items
+        </button>
+      </section>
     </div>
   );
 }

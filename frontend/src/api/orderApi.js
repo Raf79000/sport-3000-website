@@ -1,8 +1,8 @@
-const API_BASE_URL = "http://localhost:3000";
+// const process.env.API_BASE_URL = "http://localhost:3000";
 
 export async function fetchOrders() {
   try {
-    const response = await fetch(`${API_BASE_URL}/orders`);
+    const response = await fetch(`${process.env.process.env.API_BASE_URL}/orders`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -15,7 +15,7 @@ export async function fetchOrders() {
 
 export async function fetchOrderById(orderId) {
   try {
-    const response = await fetch(`${API_BASE_URL}/orders/${orderId}`);
+    const response = await fetch(`${process.env.API_BASE_URL}/orders/${orderId}`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -28,7 +28,7 @@ export async function fetchOrderById(orderId) {
 
 export async function createOrder(orderData) {
   try {
-    const response = await fetch(`${API_BASE_URL}/orders`, {
+    const response = await fetch(`${process.env.API_BASE_URL}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export async function createOrder(orderData) {
 
 export async function updateOrder(orderId, orderData) {
   try {
-    const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
+    const response = await fetch(`${process.env.API_BASE_URL}/orders/${orderId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export async function updateOrder(orderId, orderData) {
 export async function createOrderItems(orderId, itemId, orderItemData) {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/orders/${orderId}/${itemId}`,
+      `${process.env.API_BASE_URL}/orders/${orderId}/${itemId}`,
       {
         method: "POST",
         headers: {

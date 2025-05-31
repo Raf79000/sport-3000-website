@@ -1,7 +1,8 @@
+// Item.jsx
 import React from "react";
 import PropTypes from "prop-types";
 import { useCurrencySign } from "../contexts/CurrencySignContext";
-import "../styles/Item.css";
+import "../styles/App.css";
 
 const Item = ({
   name,
@@ -15,15 +16,15 @@ const Item = ({
   const { sign } = useCurrencySign();
 
   return (
-    <div className="merch-item">
-      <img src={imageUrl} alt={name} className="item-image" />
-      <div className="item-details">
-        <h3 className="item-name">{name}</h3>
-        <div className="item-price-container">
+    <div>
+      <img src={imageUrl} alt={name} className="card-img-top" />
+      <div>
+        <h3>{name}</h3>
+        <div>
           {onSale === 1 && (
-            <p className="item-sales-price">{`${sign}${salesPrice.toFixed(2)}`}</p>
+            <p>{`${sign}${salesPrice.toFixed(2)}`}</p>
           )}
-          <p className="item-price">
+          <p>
             {onSale === 1 ? (
               <del>{`${sign}${price.toFixed(2)}`}</del>
             ) : (
@@ -31,9 +32,9 @@ const Item = ({
             )}
           </p>
         </div>
-        <p className="item-description">{description}</p>
-        {onSale === 1 && <div className="sales">Soldes</div>}
-        <button className="add-to-cart-btn" onClick={onAddToCart}>
+        <p>{description}</p>
+        {onSale === 1 && <div>Soldes</div>}
+        <button className="btn btn-primary mt-md" onClick={onAddToCart}>
           Add to Cart
         </button>
       </div>

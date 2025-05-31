@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
-import "../styles/Checkout.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import "../styles/App.css"
 
 const Checkout = () => {
   const { cart, clearCart } = useCart();
@@ -79,9 +79,9 @@ const Checkout = () => {
     return (
       <div>
         <Header />
-        <div className="checkout-container">
-          <div className="order-confirmation">
-            <div className="confirmation-icon">✓</div>
+        <div>
+          <div>
+            <div>✓</div>
             <h2>Order Confirmed!</h2>
             <p>Thank you for your purchase, {formData.firstName}!</p>
             <p>Your order has been received and is now being processed.</p>
@@ -89,14 +89,14 @@ const Checkout = () => {
               A confirmation email has been sent to{" "}
               <strong>{formData.email}</strong>
             </p>
-            <div className="order-number">
+            <div>
               <p>
                 Order number:{" "}
                 <strong>{Math.floor(Math.random() * 10000000)}</strong>
               </p>
             </div>
             <Link to="/">
-              <button type="button" className="primary-btn">
+              <button type="button">
                 Continue Shopping
               </button>
             </Link>
@@ -110,37 +110,37 @@ const Checkout = () => {
   return (
     <div>
       <Header />
-      <div className="checkout-container">
-        <h1 className="checkout-title">Checkout</h1>
-        <div className="checkout-progress">
+      <div>
+        <h1>Checkout</h1>
+        <div>
           <div className={`progress-step ${currentStep >= 1 ? "active" : ""}`}>
-            <div className="step-number">1</div>
+            <div>1</div>
             <span>Cart Review</span>
           </div>
-          <div className="progress-line"></div>
+          <div></div>
           <div className={`progress-step ${currentStep >= 2 ? "active" : ""}`}>
-            <div className="step-number">2</div>
+            <div>2</div>
             <span>Shipping</span>
           </div>
-          <div className="progress-line"></div>
+          <div></div>
           <div className={`progress-step ${currentStep >= 3 ? "active" : ""}`}>
-            <div className="step-number">3</div>
+            <div>3</div>
             <span>Payment</span>
           </div>
         </div>
 
-        <div className="checkout-content">
-          <div className="checkout-left">
+        <div>
+          <div>
             {/* Step 1: Review Cart */}
             {currentStep === 1 && (
-              <div className="checkout-step">
+              <div>
                 <h2>Review Your Cart</h2>
                 {cart.length > 0 ? (
-                  <div className="checkout-cart">
+                  <div>
                     {cart.map((item, index) => (
-                      <div key={index} className="checkout-item">
-                        <div className="checkout-item-image">
-                          <div className="placeholder-image">
+                      <div key={index}>
+                        <div>
+                          <div>
                             {item.cover ? (
                               <img
                                 src={item.cover}
@@ -154,22 +154,22 @@ const Checkout = () => {
                               />
                             ) : (
                               // Fallback display when no image is available
-                              <div className="no-image-icon"></div>
+                              <div></div>
                             )}
                           </div>
                         </div>
-                        <div className="checkout-item-details">
+                        <div>
                           <h3>{item.name}</h3>
                           <p>Quantity: {item.quantity}</p>
-                          <p className="item-price">
+                          <p>
                             ${(item.price * item.quantity).toFixed(2)}
                           </p>
                         </div>
                       </div>
                     ))}
-                    <div className="checkout-actions">
+                    <div>
                       <Link to="/">
-                        <button className="secondary-btn">Back to Shop</button>
+                        <button>Back to Shop</button>
                       </Link>
                       <button className="primary-btn" onClick={handleNext}>
                         Continue to Shipping
@@ -177,12 +177,12 @@ const Checkout = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="empty-cart">
+                  <div>
                     <p>
                       Your cart is empty! Add some products before checking out.
                     </p>
                     <Link to="/">
-                      <button className="primary-btn">Back to Shop</button>
+                      <button>Back to Shop</button>
                     </Link>
                   </div>
                 )}
@@ -191,11 +191,11 @@ const Checkout = () => {
 
             {/* Step 2: Shipping Information */}
             {currentStep === 2 && (
-              <div className="checkout-step">
+              <div>
                 <h2>Shipping Information</h2>
-                <form className="checkout-form">
-                  <div className="form-row">
-                    <div className="form-group">
+                <form>
+                  <div>
+                    <div>
                       <label htmlFor="firstName">First Name</label>
                       <input
                         type="text"
@@ -206,7 +206,7 @@ const Checkout = () => {
                         required
                       />
                     </div>
-                    <div className="form-group">
+                    <div>
                       <label htmlFor="lastName">Last Name</label>
                       <input
                         type="text"
@@ -218,7 +218,7 @@ const Checkout = () => {
                       />
                     </div>
                   </div>
-                  <div className="form-group">
+                  <div>
                     <label htmlFor="email">Email</label>
                     <input
                       type="email"
@@ -229,7 +229,7 @@ const Checkout = () => {
                       required
                     />
                   </div>
-                  <div className="form-group">
+                  <div>
                     <label htmlFor="address">Address</label>
                     <input
                       type="text"
@@ -240,8 +240,8 @@ const Checkout = () => {
                       required
                     />
                   </div>
-                  <div className="form-row">
-                    <div className="form-group">
+                  <div>
+                    <div>
                       <label htmlFor="city">City</label>
                       <input
                         type="text"
@@ -252,7 +252,7 @@ const Checkout = () => {
                         required
                       />
                     </div>
-                    <div className="form-group">
+                    <div>
                       <label htmlFor="zipCode">Postal Code</label>
                       <input
                         type="text"
@@ -264,7 +264,7 @@ const Checkout = () => {
                       />
                     </div>
                   </div>
-                  <div className="form-group">
+                  <div>
                     <label htmlFor="country">Country</label>
                     <select
                       id="country"
@@ -281,7 +281,7 @@ const Checkout = () => {
                     </select>
                   </div>
                 </form>
-                <div className="checkout-actions">
+                <div>
                   <button className="secondary-btn" onClick={handlePrev}>
                     Back to Cart
                   </button>
@@ -302,11 +302,11 @@ const Checkout = () => {
 
             {/* Step 3: Payment Information */}
             {currentStep === 3 && (
-              <div className="checkout-step">
+              <div>
                 <h2>Payment Method</h2>
                 <form className="checkout-form" onSubmit={handleSubmit}>
-                  <div className="payment-methods">
-                    <div className="payment-method active">
+                  <div>
+                    <div>
                       <input
                         type="radio"
                         id="credit-card"
@@ -315,14 +315,14 @@ const Checkout = () => {
                       />
                       <label htmlFor="credit-card">Credit Card</label>
                     </div>
-                    <div className="payment-method">
+                    <div>
                       <input type="radio" id="paypal" name="payment" />
                       <label htmlFor="paypal">PayPal</label>
                     </div>
                   </div>
 
-                  <div className="credit-card-form">
-                    <div className="form-group">
+                  <div>
+                    <div>
                       <label htmlFor="cardName">Name on Card</label>
                       <input
                         type="text"
@@ -333,7 +333,7 @@ const Checkout = () => {
                         required
                       />
                     </div>
-                    <div className="form-group">
+                    <div>
                       <label htmlFor="cardNumber">Card Number</label>
                       <input
                         type="text"
@@ -345,8 +345,8 @@ const Checkout = () => {
                         required
                       />
                     </div>
-                    <div className="form-row">
-                      <div className="form-group">
+                    <div>
+                      <div>
                         <label htmlFor="expiryDate">Expiry Date</label>
                         <input
                           type="text"
@@ -358,7 +358,7 @@ const Checkout = () => {
                           required
                         />
                       </div>
-                      <div className="form-group">
+                      <div>
                         <label htmlFor="cvv">Security Code</label>
                         <input
                           type="text"
@@ -373,11 +373,11 @@ const Checkout = () => {
                     </div>
                   </div>
 
-                  <div className="checkout-actions">
+                  <div>
                     <button className="secondary-btn" onClick={handlePrev}>
                       Back to Shipping
                     </button>
-                    <button type="submit" className="primary-btn">
+                    <button type="submit">
                       Complete Order
                     </button>
                   </div>
@@ -386,12 +386,12 @@ const Checkout = () => {
             )}
           </div>
 
-          <div className="checkout-right">
-            <div className="order-summary">
+          <div>
+            <div>
               <h3>Order Summary</h3>
-              <div className="summary-items">
+              <div>
                 {cart.map((item, index) => (
-                  <div key={index} className="summary-item">
+                  <div key={index}>
                     <span>
                       {item.quantity} × {item.name}
                     </span>
@@ -399,15 +399,15 @@ const Checkout = () => {
                   </div>
                 ))}
               </div>
-              <div className="summary-subtotal">
+              <div>
                 <span>Subtotal</span>
                 <span>${totalPrice}</span>
               </div>
-              <div className="summary-shipping">
+              <div>
                 <span>Shipping</span>
                 <span>${shippingCost.toFixed(2)}</span>
               </div>
-              <div className="summary-total">
+              <div>
                 <span>Total</span>
                 <span>${finalTotal}</span>
               </div>

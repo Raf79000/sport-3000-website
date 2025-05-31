@@ -1,12 +1,12 @@
+// Cart.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/Cart.css";
 import { useCart } from "../contexts/CartContext";
+import "../styles/App.css";
 
 const Cart = () => {
   const { cart, addToCart, removeFromCart } = useCart();
 
-  // Calculate total price
   const totalPrice = cart
     .reduce(
       (sum, item) =>
@@ -19,62 +19,59 @@ const Cart = () => {
     .toFixed(2);
 
   return (
-    <div className="cart-summary">
-      <h3>Shopping Cart</h3>
-      {cart.length > 0 ? (
-        <>
-          <ul className="cart-list">
-            {cart.map((item, index) => (
-              <li key={index} className="cart-item">
-                <div className="cart-item-info">
-                  <span>{item.name}</span>
-                  {item.onSale ? (
-                    <span className="cart-item-price">
-                      ${item.salesPrice.toFixed(2)}
+    <div>
+      <header>
+        <h3>Shopping Cart</h3>
+      </header>
+      <main>
+        {cart.length > 0 ? (
+          <>
+            <ul>
+              {cart.map((item, index) => (
+                <li
+                  key={index}
+                  className="flex justify-between items-center p-sm border-b border-gray-700"
+                >
+                  <div>
+                    <span>{item.name}</span>
+                    <span>
+                      {item.onSale
+                        ? `$${item.salesPrice.toFixed(2)}`
+                        : `$${item.price.toFixed(2)}`}
                     </span>
-                  ) : (
-                    <span className="cart-item-price">
-                      ${item.price.toFixed(2)}
-                    </span>
-                  )}
-                </div>
-                <div className="cart-item-actions">
-                  <div className="quantity-controls">
+                  </div>
+                  <div>
                     <button
-                      className="quantity-btn"
+                      className="btn btn-secondary"
                       onClick={() => removeFromCart(index)}
                     >
-                      -
+                      –
                     </button>
-                    <span className="item-quantity">{item.quantity}</span>
+                    <span>{item.quantity}</span>
                     <button
-                      className="quantity-btn"
+                      className="btn btn-secondary"
                       onClick={() => addToCart(item)}
                     >
                       +
                     </button>
+                    <span>
+                      {item.onSale
+                        ? `$${(item.salesPrice * item.quantity).toFixed(2)}`
+                        : `$${(item.price * item.quantity).toFixed(2)}`}
+                    </span>
                   </div>
-                  {item.onSale ? (
-                    <span className="item-total">
-                      ${(item.salesPrice * item.quantity).toFixed(2)}
-                    </span>
-                  ) : (
-                    <span className="item-total">
-                      ${(item.price * item.quantity).toFixed(2)}
-                    </span>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="cart-total">Total: ${totalPrice}</div>
-          <Link to="/checkout" className="checkout-btn">
-            <button>Checkout</button>
-          </Link>
-        </>
-      ) : (
-        <p className="empty-cart-message">Your cart is empty</p>
-      )}
+                </li>
+              ))}
+            </ul>
+            <div>Total: ${totalPrice}</div>
+            <Link to="/checkout">
+              <button>Checkout</button>
+            </Link>
+          </>
+        ) : (
+          <p>Your cart is empty</p>
+        )}
+      </main>
     </div>
   );
 };
