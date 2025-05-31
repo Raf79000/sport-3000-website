@@ -8,6 +8,8 @@ const GetUser = require("./Services/Users/GetUser");
 const Login = require("./Services/Users/Login");
 const SignUp = require("./Services/Users/SignUp");
 const DeleteUser = require("./Services/Users/DeleteUser");
+const UpdateUser = require("./Services/Users/UpdateUser");
+
 
 const GetOrder = require("./Services/Orders/GetOrder");
 const GetOrders = require("./Services/Orders/GetOrders");
@@ -30,6 +32,7 @@ module.exports = (app, db_connexion, multerStorage) => {
   Login(app, db_connexion);
   SignUp(app, db_connexion);
   DeleteUser(app, db_connexion);
+  UpdateUser(app, db_connexion);
 
   // Orders
   GetOrder(app, db_connexion);
