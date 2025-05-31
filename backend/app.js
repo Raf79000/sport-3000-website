@@ -2,8 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
 const multer = require("multer");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const app = express();
 
@@ -43,6 +41,5 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-
 
 module.exports = app;
