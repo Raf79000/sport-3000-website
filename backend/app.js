@@ -351,8 +351,7 @@ app.post("/orders", (req, res, next) => {
   db_connexion.query(
     `INSERT INTO orders
         (user_id, total_amount, payment_method)
-       VALUES (?, ?, ?);
-       SET @id = LAST_INSERT_ID();`,
+       VALUES (?, ?, ?);`,
     [customerId, totalAmount, paymentMethod],
     (err, result) => {
       if (err) return res.status(500).json(err);

@@ -6,7 +6,7 @@ import App from "./pages/App";
 import About from "./pages/About";
 import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
-import Checkout from "./pages/Checkout";
+import CheckoutNew from "./pages/CheckoutNew";
 import { CartProvider } from "./contexts/CartContext";
 import { CurrencySignProvider } from "./contexts/CurrencySignContext";
 import Preferences from "./pages/Preferences";
@@ -27,7 +27,7 @@ root.render(
           <Route path="/about" element={<About />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={<CheckoutNew />} />
           <Route path="/detail/:itemId" element={<Detail />} />
           <Route path="/preferences" element={<Preferences />} />
           <Route path="/login" element={<Login />} />
