@@ -1,81 +1,109 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCurrencySign } from '../contexts/CurrencySignContext';
+import { useCurrencySign } from "../contexts/CurrencySignContext";
 
 function ProfileDetail() {
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [phone, setPhone] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [language, setLanguage] = useState(null);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [language, setLanguage] = useState(localStorage.getItem("language") || "fr");
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { sign, setSign } = useCurrencySign();
 
-  if (!localStorage.getItem("token")) {
-    // Si le token n'est pas présent, redirigez l'utilisateur vers la page de connexion
-    return (
-      <div>
-        <h2>Veuillez vous connecter pour accéder à votre profil</h2>
-        <Link to="/login">Se connecter</Link>
-      </div>
-    );
-  }
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    if (!token || !userId) return;
+
+    fetch(`http://localhost:3000/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Erreur lors de la récupération des données utilisateur.");
+        return res.json();
+      })
+      .then((data) => {
+        setUsername(data.username || "");
+        setEmail(data.email || "");
+        setPhone(data.phone || "");
+        setAddress(data.address || "");
+        setLanguage(localStorage.getItem("language") || data.language || "fr");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Erreur fetch user:", err);
+        setLoading(false);
+      });
+  }, [token, userId]);
+
   const handleLogout = () => {
-    // Supprimez le token et l'ID de l'utilisateur du stockage local
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    // Redirigez l'utilisateur vers la page de connexion
-    return (
-      <div>
-        <h2>Vous êtes déconnecté</h2>
-        <Link to="/login">Se connecter</Link>
-      </div>
-    );
+    window.location.href = "/login";
   };
+
   const handleDeleteAccount = () => {
     if (
-      window.confirm(
-        "Are you sure you want to delete your account? This action is irreversible."
-      )
+      window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")
     ) {
-      // Call backend to delete account
       fetch(`http://localhost:3000/user/${userId}`, {
         method: "DELETE",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          password: password,
-        }),
       })
-        .then((response) => {
-          if (response.ok) {
-            console.log("Account deleted successfully");
+        .then((res) => {
+          if (res.ok) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
             window.location.href = "/login";
           } else {
-            console.error("Error deleting account");
-            alert("Error deleting account");
+            alert("Erreur lors de la suppression du compte.");
           }
         })
-        .catch((error) => {
-          console.error("Error deleting account:", error);
-          alert("Error deleting account");
+        .catch((err) => {
+          console.error("Erreur suppression compte:", err);
+          alert("Erreur lors de la suppression du compte.");
         });
-      localStorage.removeItem("token");
-      localStorage.removeItem("userId");
-      window.location.href = "/login";
-      //   });
     }
   };
 
   const handleSave = (e) => {
     e.preventDefault();
-    // Call backend to update user info
-    // fetch(`http://localhost:3000/user/${userId}`, { method: "PUT", headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` }, body: JSON.stringify({ username, email }) })
-    //   .then(() => setEditMode(false));
-    setEditMode(false);
+
+    fetch(`http://localhost:3000/user/${userId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        phone,
+        address,
+        language,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Erreur lors de la mise à jour");
+        return res.json();
+      })
+      .then(() => {
+        setEditMode(false);
+        localStorage.setItem("language", language);
+      })
+      .catch((err) => {
+        console.error("Erreur update:", err);
+        alert("Échec de la mise à jour.");
+      });
   };
 
   const handleLanguageChange = (e) => {
@@ -83,58 +111,40 @@ function ProfileDetail() {
     localStorage.setItem("language", e.target.value);
   };
 
-  // vous pouvez récupérer l'ID de l'utilisateur à partir du stockage local
-  const userId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
-  console.log("Token utilisateur :", token);
-  console.log("ID utilisateur :", userId);
+  if (!token || !userId) {
+    return (
+      <div>
+        <h2>Veuillez vous connecter pour accéder à votre profil</h2>
+        <Link to="/login">Se connecter</Link>
+      </div>
+    );
+  }
+
+  if (loading) return <p>Chargement du profil...</p>;
 
   return (
     <div className="profile-detail">
       <h2>Profil Utilisateur</h2>
-      <p>ID de l'utilisateur : {userId}</p>
+      <p>ID : {userId}</p>
       <button onClick={handleLogout}>Se déconnecter</button>
+
       {editMode ? (
         <form onSubmit={handleSave}>
           <label>
             Nom d'utilisateur :
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
-          <label>
-            Mot de passe :
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
           </label>
           <label>
             Email :
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
           <label>
             Téléphone :
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
+            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </label>
           <label>
             Adresse :
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
+            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
           </label>
           <label>
             Langue :
@@ -145,11 +155,7 @@ function ProfileDetail() {
           </label>
           <label>
             Devise :
-            <select
-              value={sign}
-              onChange={(e) => setSign(e.target.value)}
-              style={{ margin: "0 1rem" }}
-            >
+            <select value={sign} onChange={(e) => setSign(e.target.value)}>
               <option value="$">USD ($)</option>
               <option value="€">EUR (€)</option>
             </select>
@@ -159,7 +165,6 @@ function ProfileDetail() {
       ) : (
         <>
           <p>Nom d'utilisateur : {username}</p>
-          <p>Mot de passe : {password}</p>
           <p>Email : {email}</p>
           <p>Téléphone : {phone}</p>
           <p>Adresse : {address}</p>
@@ -168,10 +173,13 @@ function ProfileDetail() {
           <button onClick={() => setEditMode(true)}>Modifier</button>
         </>
       )}
+
       <button onClick={handleDeleteAccount} style={{ color: "red" }}>
-        Delete Account
+        Supprimer le compte
       </button>
     </div>
   );
 }
+
 export default ProfileDetail;
+ 
