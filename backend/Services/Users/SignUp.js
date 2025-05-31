@@ -41,7 +41,7 @@ module.exports = (app, db_connexion) => {
               }
 
               const userId = result.insertId;
-              const token = jwtHelper.generateJwtToken(userId, defaultRole);
+              const token = jwtHelper.generateJwtToken(userId, defaultRole, email);
 
               return res.status(201).json({
                 message: "Utilisateur créé et connecté avec succès.",

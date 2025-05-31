@@ -31,7 +31,7 @@ module.exports = (app, db_connexion) => {
             return error.Unauthorized(res, "Identifiants faux.");
           }
 
-          const token = jwtHelper.generateJwtToken(user.id, user.role);
+          const token = jwtHelper.generateJwtToken(user.id, user.role, email);
 
           return res.status(200).json({
             message: "Authentification réussie.",

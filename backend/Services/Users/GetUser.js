@@ -7,6 +7,7 @@ module.exports = (app, db_connexion) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
+      console.log("prout");
       return error.Unauthorized(res, "Token manquant.");
     }
 
