@@ -8,7 +8,14 @@ const Cart = () => {
 
   // Calculate total price
   const totalPrice = cart
-    .reduce((sum, item) => sum + item.price * item.quantity, 0)
+    .reduce(
+      (sum, item) =>
+        sum +
+        (item.onSale
+          ? item.salesPrice * item.quantity
+          : item.price * item.quantity),
+      0
+    )
     .toFixed(2);
 
   return (
@@ -21,9 +28,15 @@ const Cart = () => {
               <li key={index} className="cart-item">
                 <div className="cart-item-info">
                   <span>{item.name}</span>
-                  <span className="cart-item-price">
-                    ${item.price.toFixed(2)}
-                  </span>
+                  {item.onSale ? (
+                    <span className="cart-item-price">
+                      ${item.salesPrice.toFixed(2)}
+                    </span>
+                  ) : (
+                    <span className="cart-item-price">
+                      ${item.price.toFixed(2)}
+                    </span>
+                  )}
                 </div>
                 <div className="cart-item-actions">
                   <div className="quantity-controls">
@@ -41,9 +54,15 @@ const Cart = () => {
                       +
                     </button>
                   </div>
-                  <span className="item-total">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </span>
+                  {item.onSale ? (
+                    <span className="item-total">
+                      ${(item.salesPrice * item.quantity).toFixed(2)}
+                    </span>
+                  ) : (
+                    <span className="item-total">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </span>
+                  )}
                 </div>
               </li>
             ))}

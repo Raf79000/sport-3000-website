@@ -5,8 +5,6 @@ function Preferences() {
   return (
     <div>
       <Header />
-      <input type="checkbox"></input>
-      <label>I have a bike</label>
       <Footer />
     </div>
   );
