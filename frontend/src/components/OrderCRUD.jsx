@@ -73,7 +73,7 @@ export default function OrderCRUD() {
           onChange={handleChange}
           required
         />
-        <inputorders
+        <input
           type="number"
           name="totalAmount"
           placeholder="Total Amount"
