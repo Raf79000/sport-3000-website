@@ -34,6 +34,7 @@ services:
     restart: always
     ports:
       - "${BACKEND_PORT}:3000"
+      - "${BACKEND_DEBUG_PORT}:9229"
     environment:
       DB_HOST: ${DB_HOST}
       DB_USER: ${DB_USER}
