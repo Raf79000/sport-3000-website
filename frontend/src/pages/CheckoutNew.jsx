@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getToken } from "../utils/auth";
 import { useCart } from "../contexts/CartContext";
-import { createOrder } from "../api/orderApi";
+import { createOrder, createOrderItems } from "../api/orderApi";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../styles/Checkout.css";
@@ -40,28 +40,37 @@ const CheckoutNew = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleCheckout = (e) => {
+  const handleCheckout = async (e) => {
     // Simulate checkout process
     e.preventDefault();
 
-    createOrder({
-      customerId: localStorage.getItem("userId"),
-      totalAmount: totalPrise,
-      paymentMethod: "Credit Card", // This can be dynamic based on user input
-    })
-      .then((response) => {        
-        if (!response.id) {
-          alert("Checkout failed. Please try again.");
-        } else {
-          alert("Checkout successful!");
-          clearCart();
-          setIsOrderConfirmed(true);
-        }
-      })
-      .catch((err) => {
-        console.error("Order creation threw an error:", err);
-        alert("Checkout failed due to a network or server error.");
+    try {
+      const response = await createOrder({
+        customerId: localStorage.getItem("userId"),
+        totalAmount: totalPrise,
+        paymentMethod: "Credit Card", // This can be dynamic based on user input
       });
+
+      if (!response.id) {
+        alert("Checkout failed. Please try again.");
+        throw new Error("Checkout failed.");
+      }
+
+      const orderItemPromises = cart.map((item) => {
+        return createOrderItems(response.id, item.id, {
+          quantity: item.quantity,
+          price: item.onSale ? item.salesPrice : item.price,
+        });
+      });
+
+      await Promise.all(orderItemPromises);
+
+      clearCart();
+      setIsOrderConfirmed(true);
+    } catch (err) {
+      console.error("Error during checkout:", err);
+      alert("Checkout failed due to a network or server error.");
+    }
   };
 
   if (isOrderConfirmed) {

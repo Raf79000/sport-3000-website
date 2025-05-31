@@ -363,19 +363,20 @@ app.post("/orders", (req, res, next) => {
   );
 });
 
-app.post("/orders/:id/items", (req, res, next) => {
-  const { orderId, itemId, quantity } = req.body;
+app.post("/orders/:id/:item", (req, res, next) => {
+  const { quantity, price } = req.body;
+  console.log('creating item with data:', quantity, price, req.params.id, req.params.item);
 
-  if (!orderId || !itemId || !quantity) {
+  if (!req.params.id || !req.params.item || !quantity || !price) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
   db_connexion.query(
     `INSERT INTO ordersItems
         (order_id, item_id, quantity, unit_price)
-       VALUES (?, ?, ?)`,
-    [req.params.id, itemId, quantity],
-    (err, result) => {
+       VALUES (?, ?, ?, ?)`,
+    [req.params.id, req.params.item, quantity, price],
+    (err, result) => {      
       if (err) return res.status(500).json(err);
       res.status(201).json({
         id: result.insertId,
