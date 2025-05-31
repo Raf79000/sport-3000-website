@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
 function LoginDetail() {
   useEffect(() => {
-    // Vérifiez si un token est déjà stocké localement
     const token = localStorage.getItem("token");
     if (token) {
-      // Si un token est présent, redirigez l'utilisateur vers la page de profil
       window.location.href = "/profile";
     }
-  }, []); // Utilisez un tableau vide pour exécuter cet effet uniquement une fois au chargement initial
-  const [username, setUsername] = useState("");
+  }, []);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isSignup, setIsSignup] = useState(false); // Ajout d'un état pour gérer le mode d'inscription ou de connexion
+  const [isSignup, setIsSignup] = useState(false); 
   const [errorMessage, setErrorMessage] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSignup && password !== confirmPassword) {
-      // Si l'utilisateur essaie de s'inscrire et que les mots de passe ne correspondent pas
       setErrorMessage("Les mots de passe ne correspondent pas.");
       return;
     }
@@ -29,26 +26,22 @@ function LoginDetail() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
       if (!response.ok) {
-        // Si la réponse n'est pas OK, gérer l'erreur
         const errorMessage = await response.text();
         setErrorMessage(errorMessage);
         throw new Error(errorMessage);
       }
       const data = await response.json();
       const token = data.token;
-      // Stockez le token dans le stockage local
       localStorage.setItem("token", token);
-      // Stockez l'ID de l'utilisateur dans le stockage local
       const userId = data.userId;
       localStorage.setItem("userId", userId);
-      // Redirection de l'utilisateur vers une page de gestion du profil
       window.location.href = "/profile";
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);
-      // Affichez un message d'erreur à l'utilisateur
+      
       setErrorMessage("Identifiants incorrects. Veuillez réessayer.");
     }
   };
@@ -60,8 +53,8 @@ function LoginDetail() {
         <input
           type="email"
           placeholder="Email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
