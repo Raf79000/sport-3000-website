@@ -10,9 +10,9 @@
     "react-icons": "5.5.0"
   },
   "scripts": {
-    "start": "PORT=80 react-scripts start",
-    "build": "PORT=80 react-scripts build",
-    "eject": "PORT=80 react-scripts eject"
+    "start": "PORT=82 react-scripts start",
+    "build": "PORT=82 react-scripts build",
+    "eject": "PORT=82 react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
