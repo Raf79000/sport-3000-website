@@ -1,4 +1,4 @@
-// OrderCRUD.jsx
+// OrderCRUD.jsx (with Customer ID filter)
 import React, { useState, useEffect } from "react";
 import "../styles/App.css";
 
@@ -8,10 +8,11 @@ export default function OrderCRUD() {
   const [orders, setOrders] = useState([]);
   const [form, setForm] = useState({
     id: null,
-    customerId: "",
+    userId: "",
     totalAmount: "",
     paymentMethod: "",
   });
+  const [filterUserId, setFilterUserId] = useState("");
 
   useEffect(() => {
     fetchOrders();
@@ -25,7 +26,7 @@ export default function OrderCRUD() {
   function resetForm() {
     setForm({
       id: null,
-      customerId: "",
+      userId: "",
       totalAmount: "",
       paymentMethod: "",
     });
@@ -34,6 +35,10 @@ export default function OrderCRUD() {
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
+  }
+
+  function handleFilterChange(e) {
+    setFilterUserId(e.target.value);
   }
 
   async function handleSubmit(e) {
@@ -47,7 +52,7 @@ export default function OrderCRUD() {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        customerId: form.customerId,
+        userId: form.userId,
         totalAmount: form.totalAmount,
         paymentMethod: form.paymentMethod,
         ...(form.id && { id: form.id }),
@@ -62,21 +67,28 @@ export default function OrderCRUD() {
     }
   }
 
+  // Filtered orders by userId (case-insensitive)
+  const filteredOrders = orders.filter((order) =>
+    String(order.userId).includes(filterUserId.trim())
+  );
+
   return (
-    <div>
-      <header>
-        <h1>Order Management</h1>
+    <div id="order-container" className="order-container">
+      <header id="order-header" className="order-header">
+        <h1 className="order-title">Order Management</h1>
       </header>
-      <main>
-        <form onSubmit={handleSubmit}>
+
+      <main id="order-main" className="order-main">
+        <form id="order-form" className="order-form" onSubmit={handleSubmit}>
           <input
             type="text"
-            name="customerId"
+            name="userId"
             placeholder="Customer ID"
-            value={form.customerId}
+            value={form.userId}
             onChange={handleChange}
             required
-            className="p-sm"
+            className="form-input"
+            id="order-customer-id"
           />
           <input
             type="number"
@@ -85,7 +97,8 @@ export default function OrderCRUD() {
             value={form.totalAmount}
             onChange={handleChange}
             required
-            className="p-sm"
+            className="form-input"
+            id="order-total-amount"
           />
           <input
             type="text"
@@ -94,40 +107,82 @@ export default function OrderCRUD() {
             value={form.paymentMethod}
             onChange={handleChange}
             required
-            className="p-sm"
+            className="form-input"
+            id="order-payment-method"
           />
-          <div>
-            <button type="submit">
+          <div className="order-form-actions">
+            <button type="submit" className="btn btn-primary order-btn">
               Save Order
             </button>
-            <button type="button" onClick={resetForm}>
+            <button
+              type="button"
+              onClick={resetForm}
+              className="btn btn-secondary order-btn"
+            >
               Reset
             </button>
           </div>
         </form>
 
-        <h2>Orders List</h2>
-        <ul>
-          {orders.map((order) => (
-            <li key={order.id}>
-              <span>
-                <strong>{order.customerId}</strong> - ${order.totalAmount} - {order.paymentMethod} - {order.status}
-              </span>
-              <button
-                onClick={() => {
-                  setForm(order);
-                }}
-                className="btn btn-accent"
-              >
-                Edit
-              </button>
-            </li>
-          ))}
-          {orders.length === 0 && <li>No orders found</li>}
-        </ul>
-        <button onClick={fetchOrders}>
-          Refresh Orders
-        </button>
+        <div className="order-filter-container">
+          <label htmlFor="filter-customer-id" className="filter-label">
+            Filter by Customer ID:
+          </label>
+          <input
+            type="text"
+            id="filter-customer-id"
+            value={filterUserId}
+            onChange={handleFilterChange}
+            placeholder="Enter Customer ID"
+            className="filter-input"
+          />
+        </div>
+
+        <h2 className="order-list-heading">Orders List</h2>
+        <div className="table-responsive">
+          <table id="order-table" className="order-table">
+            <thead>
+              <tr>
+                <th>Customer ID</th>
+                <th>Total Amount</th>
+                <th>Payment Method</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredOrders.length > 0 ? (
+                filteredOrders.map((order) => (
+                  <tr key={order.id}>
+                    <td>{order.userId}</td>
+                    <td>${order.totalAmount}</td>
+                    <td>{order.paymentMethod}</td>
+                    <td>{order.status}</td>
+                    <td>
+                      <button
+                        className="btn btn-accent btn-sm"
+                        onClick={() => setForm(order)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="no-orders">
+                    No orders found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="order-refresh">
+          <button className="btn btn-primary" onClick={fetchOrders}>
+            Refresh Orders
+          </button>
+        </div>
       </main>
     </div>
   );

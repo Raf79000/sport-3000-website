@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ContactDetail from "../components/ContactDetail";
@@ -9,9 +8,7 @@ const Contact = () => {
   return (
     <div>
       <Header />
-      <main>
-        <ContactDetail />
-      </main>
+      <ContactDetail />
       <Footer />
     </div>
   );

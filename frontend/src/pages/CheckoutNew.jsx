@@ -38,13 +38,13 @@ const CheckoutNew = () => {
     )
     .toFixed(2);
 
-  const handleNextStep = () => {
-    setCurrentStep(currentStep + 1);
-  };
+  // const handleNextStep = () => {
+  //   setCurrentStep(currentStep + 1);
+  // };
 
-  const handlePreviousStep = () => {
-    setCurrentStep(currentStep - 1);
-  };
+  // const handlePreviousStep = () => {
+  //   setCurrentStep(currentStep - 1);
+  // };
 
   const handleCheckout = async (e) => {
     // Simulate checkout process

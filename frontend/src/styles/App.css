@@ -1625,3 +1625,140 @@ body.dark-mode .cart-total {
 body.dark-mode .cart-empty {
   color: var(--color-text-light);
 }
+
+/* ========== OrderCRUD (Orders Table) Styles ========== */
+
+/* Container */
+#order-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Header */
+.order-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.order-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Form */
+.order-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.order-form input.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+.order-form-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.order-btn {
+  margin-top: var(--spacing-xs);
+}
+
+/* Orders List Heading */
+.order-list-heading {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-secondary);
+}
+
+/* Table Responsive Wrapper */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Table */
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-lg);
+}
+
+.order-table th,
+.order-table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.order-table thead th {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.order-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-table tbody tr:hover {
+  background-color: var(--color-bg);
+}
+
+/* No Orders Row */
+.no-orders {
+  text-align: center;
+  color: var(--color-text-light);
+  padding: var(--spacing-md) 0;
+  font-style: italic;
+}
+
+/* Refresh Button Container */
+.order-refresh {
+  text-align: right;
+  margin-top: var(--spacing-md);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .order-form {
+    flex-direction: column;
+  }
+}
+
+/* Dark Mode Overrides for Orders */
+body.dark-mode #order-container {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+body.dark-mode .order-form input.form-input {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+body.dark-mode .order-table thead th {
+  background-color: var(--color-secondary);
+}
+
+body.dark-mode .order-table tbody tr:nth-child(even) {
+  background-color: var(--color-surface);
+}
+
+body.dark-mode .order-table tbody tr:hover {
+  background-color: var(--color-surface);
+}
+
+body.dark-mode .no-orders {
+  color: var(--color-text-light);
+}

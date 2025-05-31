@@ -2,19 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
+import { PreferencesProvider } from "./contexts/PreferencesContext";
+import { CartProvider } from "./contexts/CartContext";
+import { CurrencySignProvider } from "./contexts/CurrencySignContext";
 import App from "./pages/App";
 import About from "./pages/About";
 import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
 import CheckoutNew from "./pages/CheckoutNew";
-import { PreferencesProvider } from "./contexts/PreferencesContext";
-import { CartProvider } from "./contexts/CartContext";
-import { CurrencySignProvider } from "./contexts/CurrencySignContext";
 import Preferences from "./pages/Preferences";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Sales from "./pages/Sales";
 import Detail from "./pages/Detail";
+import Orders from "./pages/Orders";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -35,6 +36,7 @@ root.render(
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/sales" element={<Sales />} />
+              <Route path="/orders" element={<Orders />} />
             </Routes>
           </CurrencySignProvider>
         </CartProvider>
