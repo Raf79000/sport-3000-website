@@ -29,7 +29,7 @@ module.exports = (app, db_connexion) => {
             return error.InternalServer(res, "Erreur serveur lors du hachage.");
           }
 
-          const defaultRole = "user";
+          const defaultRole = 2; // Role par défaut pour les nouveaux utilisateurs
 
           db_connexion.query(
             "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, ?)",
