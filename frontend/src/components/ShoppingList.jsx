@@ -1,11 +1,11 @@
+// ShoppingList.jsx
+import React, { useEffect, useState } from "react";
 import Item from "./Item";
 import { useCart } from "../contexts/CartContext";
-import "../styles/ShoppingList.css";
-import { useEffect, useState } from "react";
+import "../styles/App.css";
 
 function ShoppingList() {
-  const { addToCart } = useCart(); 
-
+  const { addToCart } = useCart();
   const [itemList, setItemList] = useState([]);
   const [sortOption, setSortOption] = useState("priceLowToHigh");
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,48 +51,57 @@ function ShoppingList() {
   });
 
   return (
-    <div className="shopping-list">
-      <h2 className="shopping-list-title">Sport 3000 Products</h2>
+    <div id="shoppinglist-container" className="shoppinglist-container">
+      <header id="shoppinglist-header" className="shoppinglist-header">
+        <h2 className="shoppinglist-title">Sport 3000 Products</h2>
+      </header>
 
-      <div className="search-sort-bar" style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-        <input
-          type="text"
-          placeholder="Search items..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="search-input"
-        />
-        <div className="sort-container">
-          <label>
-            Sort by:{" "}
-            <select value={sortOption} onChange={handleSortChange}>
+      <main id="shoppinglist-main" className="shoppinglist-main">
+        <div className="search-sort-bar">
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="search-input"
+          />
+          <div className="sort-container">
+            <label htmlFor="sort-select" className="sort-label">
+              Sort by:
+            </label>
+            <select
+              id="sort-select"
+              value={sortOption}
+              onChange={handleSortChange}
+              className="sort-select"
+            >
               <option value="priceLowToHigh">Price: Low to High</option>
               <option value="priceHighToLow">Price: High to Low</option>
               <option value="nameAZ">Name: A → Z</option>
               <option value="nameZA">Name: Z → A</option>
               <option value="onSaleFirst">On Sale First</option>
             </select>
-          </label>
+          </div>
         </div>
-      </div>
 
-      <div className="items-container">
-        {sortedItems.map((item) => (
-          console.log(item.cover),
-          <Item
-            key={item.id}
-            name={item.name}
-            price={item.price}
-            imageUrl={item.cover}
-            description={
-              item.description || "Premium sports equipment for athletes."
-            }
-            onSale={item.onSale}
-            salesPrice={item.salesPrice}
-            onAddToCart={() => addToCart(item)}
-          />
-        ))}
-      </div>
+        <section id="items-grid" className="items-grid">
+          {sortedItems.map((item) => (
+            <Item
+              key={item.id}
+              name={item.name}
+              price={item.price}
+              imageUrl={item.cover}
+              description={
+                item.description || "Premium sports equipment for athletes."
+              }
+              onSale={item.onSale}
+              salesPrice={item.salesPrice}
+              onAddToCart={() => addToCart(item)}
+            />
+          ))}
+        </section>
+      </main>
+      {/* Footer is included at application level */}
     </div>
   );
 }

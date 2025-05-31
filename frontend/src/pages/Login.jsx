@@ -1,15 +1,18 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoginDetail from "../components/LoginDetail";
-// import "../styles/Login.css";
+import "../styles/App.css";
 
 function Login() {
   return (
     <div>
       <Header />
-      <LoginDetail />
+      <main>
+        <LoginDetail />
+      </main>
       <Footer />
     </div>
   );
 }
+
 export default Login;

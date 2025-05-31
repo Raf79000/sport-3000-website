@@ -1,12 +1,11 @@
-import React from "react";
-import { useEffect, useState } from "react";
+// SalesDetail.jsx
+import React, { useEffect, useState } from "react";
 import { useCart } from "../contexts/CartContext";
 import Item from "../components/Item";
+import "../styles/App.css";
 
 const SalesDetail = () => {
-
   const { addToCart } = useCart();
-
   const [itemList, setItemList] = useState([]);
   const [sortOption, setSortOption] = useState("priceLowToHigh");
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,10 +30,10 @@ const SalesDetail = () => {
   };
 
   const filteredItems = itemList
-  .filter((item) => item.onSale === 1)
-  .filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+    .filter((item) => item.onSale === 1)
+    .filter((item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   const sortedItems = [...filteredItems].sort((a, b) => {
     switch (sortOption) {
@@ -54,16 +53,13 @@ const SalesDetail = () => {
   });
 
   return (
-    <div className="sales-page">
-      <h1>Sales Page</h1>
-      <p>This is the sales page where you can find items on sale.</p>
-      <div className="shopping-list">
-        <h2 className="shopping-list-title">Sport 3000 Products</h2>
-
-        <div
-          className="search-sort-bar"
-          style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}
-        >
+    <div>
+      <header>
+        <h1>Sales Page</h1>
+      </header>
+      <main>
+        <p>This is the sales page where you can find items on sale.</p>
+        <div className="search-sort-bar flex" style={{ gap: "1rem", marginBottom: "1rem" }}>
           <input
             type="text"
             placeholder="Search items..."
@@ -71,7 +67,7 @@ const SalesDetail = () => {
             onChange={handleSearchChange}
             className="search-input"
           />
-          <div className="sort-container">
+          <div>
             <label>
               Sort by:{" "}
               <select value={sortOption} onChange={handleSortChange}>
@@ -85,7 +81,7 @@ const SalesDetail = () => {
           </div>
         </div>
 
-        <div className="items-container">
+        <div>
           {sortedItems.map((item) => (
             <Item
               key={item.id}
@@ -101,7 +97,8 @@ const SalesDetail = () => {
             />
           ))}
         </div>
-      </div>
+      </main>
+      {/* Footer is included at application level */}
     </div>
   );
 };
