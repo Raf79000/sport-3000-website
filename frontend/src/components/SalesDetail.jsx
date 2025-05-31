@@ -53,13 +53,15 @@ const SalesDetail = () => {
   });
 
   return (
-    <div>
-      <header>
-        <h1>Sales Page</h1>
+    <div id="sales-container" className="shopping-container">
+      <header id="sales-header" className="shopping-header">
+        <h1 className="shopping-title">Sales Page</h1>
       </header>
-      <main>
-        <p>This is the sales page where you can find items on sale.</p>
-        <div className="search-sort-bar flex" style={{ gap: "1rem", marginBottom: "1rem" }}>
+      <main id="sales-main" className="shopping-main">
+        <p className="paragraph">
+          This is the sales page where you can find items on sale.
+        </p>
+        <div className="search-sort-bar">
           <input
             type="text"
             placeholder="Search items..."
@@ -67,24 +69,30 @@ const SalesDetail = () => {
             onChange={handleSearchChange}
             className="search-input"
           />
-          <div>
-            <label>
-              Sort by:{" "}
-              <select value={sortOption} onChange={handleSortChange}>
-                <option value="priceLowToHigh">Price: Low to High</option>
-                <option value="priceHighToLow">Price: High to Low</option>
-                <option value="nameAZ">Name: A → Z</option>
-                <option value="nameZA">Name: Z → A</option>
-                <option value="onSaleFirst">On Sale First</option>
-              </select>
+          <div className="sort-container">
+            <label htmlFor="sales-sort-select" className="sort-label">
+              Sort by:
             </label>
+            <select
+              id="sales-sort-select"
+              value={sortOption}
+              onChange={handleSortChange}
+              className="sort-select"
+            >
+              <option value="priceLowToHigh">Price: Low to High</option>
+              <option value="priceHighToLow">Price: High to Low</option>
+              <option value="nameAZ">Name: A → Z</option>
+              <option value="nameZA">Name: Z → A</option>
+              <option value="onSaleFirst">On Sale First</option>
+            </select>
           </div>
         </div>
 
-        <div>
+        <div className="items-grid">
           {sortedItems.map((item) => (
             <Item
               key={item.id}
+              id={item.id}
               name={item.name}
               price={item.price}
               imageUrl={item.cover}
