@@ -38,8 +38,7 @@ const storage = multer.diskStorage({
     callback(null, uploadDir);
   },
   filename: (req, file, callback) => {
-    const fileName = `${Date.now()}-
-  ${file.originalname}`;
+    const fileName = `${Date.now()}-${file.originalname}`;
     callback(null, fileName);
   },
 });
@@ -48,13 +47,120 @@ const upload = multer({ storage: storage });
 // Routes
 app.get("/", (req, res, next) => {
   db_connexion.query("SELECT * FROM items", (error, results) => {
-    if (error) {
-      console.error("Wsh frérot erreur sur ta query: ", error);
-      res.status(500).json(error);
-    } else {
-      res.status(200).json(results);
-    }
+    if (error) return res.status(500).json(error);
+    // build a full URL for each cover
+    const host = "http://localhost:3000";
+    const items = results.map((item) => ({
+      ...item,
+      cover: item.cover ? `${host}/images/${item.cover}` : null,
+    }));
+    res.status(200).json(items);
   });
+});
+
+app.get("/items/:id", (req, res) => {
+  db_connexion.query(
+    "SELECT * FROM items WHERE id = ?",
+    [req.params.id],
+    (err, results) => {
+      if (err) return res.status(500).json(err);
+      if (results.length === 0)
+        return res.status(404).json({ error: "Not found" });
+      const item = results[0];
+      const host = "http://localhost:3000";
+      item.cover = item.cover ? `${host}/images/${item.cover}` : null;
+      res.json(item);
+    }
+  );
+});
+
+// → Create a new item (admin only)
+app.post(
+  "/items",
+  upload.single("cover"), // ← multer middleware
+  (req, res) => {
+    const { name, price, description, onSale, salesPrice } = req.body;
+    // Multer puts the file info on req.file
+    const coverFilename = req.file ? req.file.filename : null;
+
+    db_connexion.query(
+      `INSERT INTO items
+          (name, price, cover, description, onSale, salesPrice)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+      [name, price, coverFilename, description, onSale, salesPrice],
+      (err, result) => {
+        if (err) return res.status(500).json(err);
+        res.status(201).json({
+          id: result.insertId,
+          coverUrl: coverFilename ? `/images/${coverFilename}` : null,
+          message: "Item created",
+        });
+      }
+    );
+  }
+);
+
+// → Update an existing item (admin only)
+app.put(
+  "/items/:id",
+  upload.single("cover"), // ← also allow new cover
+  (req, res) => {
+    const { name, price, description, onSale, salesPrice } = req.body;
+    // If a new file was uploaded, use its filename; otherwise keep existing
+    let coverFilename;
+    if (req.file) {
+      coverFilename = req.file.filename;
+    }
+
+    // First optionally fetch existing cover if needed
+    db_connexion.query(
+      "SELECT cover FROM items WHERE id = ?",
+      [req.params.id],
+      (selErr, selRes) => {
+        if (selErr) return res.status(500).json(selErr);
+        if (selRes.length === 0)
+          return res.status(404).json({ error: "Not found" });
+
+        const finalCover = coverFilename || selRes[0].cover;
+
+        db_connexion.query(
+          `UPDATE items SET
+               name = ?, price = ?, cover = ?, description = ?, onSale = ?, salesPrice = ?
+             WHERE id = ?`,
+          [
+            name,
+            price,
+            finalCover,
+            description,
+            onSale,
+            salesPrice,
+            req.params.id,
+          ],
+          (err, result) => {
+            if (err) return res.status(500).json(err);
+            res.json({
+              message: "Item updated",
+              coverUrl: `/images/${finalCover}`,
+            });
+          }
+        );
+      }
+    );
+  }
+);
+
+// → Delete an item (admin only)
+app.delete("/items/:id", (req, res, next) => {
+  db_connexion.query(
+    "DELETE FROM items WHERE id = ?",
+    [req.params.id],
+    (err, result) => {
+      if (err) return res.status(500).json(err);
+      if (result.affectedRows === 0)
+        return res.status(404).json({ error: "Not found" });
+      res.json({ message: "Item deleted" });
+    }
+  );
 });
 
 // Add a user
@@ -161,8 +267,6 @@ app.get("/user/:id", (req, res, next) => {
   );
 });
 
-app.pos
-
 app.delete("/user/:id", (req, res, next) => {
   const userId = req.params.id;
   const { password } = req.body;
@@ -180,12 +284,85 @@ app.delete("/user/:id", (req, res, next) => {
           .status(500)
           .json({ error: "Erreur serveur lors de la suppression." });
       } else {
-        res
-          .status(200)
-          .json({ message: "Utilisateur supprimé avec succès." });
+        res.status(200).json({ message: "Utilisateur supprimé avec succès." });
       }
     }
   );
 });
 
+app.get("/orders", (req, res, next) => {
+  db_connexion.query("SELECT * FROM orders", (error, results) => {
+    if (error) return res.status(500).json(error);
+    const orders = results.map((order) => {
+      return {
+        id: order.id,
+        userId: order.user_id,
+        totalAmount: order.total_amount,
+        paymentMethod: order.payment_method,
+        createdAt: order.created_at,
+        status: order.status,
+      };
+    });
+    res.status(200).json(orders);
+  });
+});
+
+app.get("/orders/:id", (req, res) => {
+  db_connexion.query(
+    "SELECT * FROM orders WHERE id = ?",
+    [req.params.id],
+    (err, results) => {
+      if (err) return res.status(500).json(err);
+      if (results.length === 0)
+        return res.status(404).json({ error: "Not found" });
+      const order = results[0];
+      res.json(order);
+    }
+  );
+});
+
+app.put("/orders/:id", (req, res, next) => {
+  const { orderId, userId, totalAmount, paymentMethod } = req.body;
+
+  if (!orderId || !userId || !totalAmount || !paymentMethod) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  db_connexion.query(
+    `INSERT INTO orders
+        (user_id, total_amount, payment_method)
+       VALUES (?, ?, ?)
+       WHERE id = ?`,
+    [userId, totalAmount, paymentMethod, orderId],
+    (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.status(201).json({
+        id: result.insertId,
+        message: "Order created",
+      });
+    }
+  );
+});
+
+app.post("/orders", (req, res, next) => {
+  console.log("Creating order with body:", req.body);
+  const { customerId, totalAmount, paymentMethod } = req.body;
+
+  db_connexion.query(
+    `INSERT INTO orders
+        (user_id, total_amount, payment_method)
+       VALUES (?, ?, ?)`,
+    [customerId, totalAmount, paymentMethod],
+    (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.status(201).json({
+        id: result.insertId,
+        message: "Order created",
+      });
+    }
+  );
+});
+
 module.exports = app;
+
+

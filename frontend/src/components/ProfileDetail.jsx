@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useCurrencySign } from '../contexts/CurrencySignContext';
+
 function ProfileDetail() {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -7,8 +9,9 @@ function ProfileDetail() {
   const [phone, setPhone] = useState(null);
   const [address, setAddress] = useState(null);
   const [language, setLanguage] = useState(null);
-  const [currency, setCurrency] = useState(null);
   const [editMode, setEditMode] = useState(false);
+
+  const { sign, setSign } = useCurrencySign();
 
   if (!localStorage.getItem("token")) {
     // Si le token n'est pas présent, redirigez l'utilisateur vers la page de connexion
@@ -80,10 +83,6 @@ function ProfileDetail() {
     localStorage.setItem("language", e.target.value);
   };
 
-  const handleCurrencyChange = (e) => {
-    setCurrency(e.target.value);
-    localStorage.setItem("currency", e.target.value);
-  };
   // vous pouvez récupérer l'ID de l'utilisateur à partir du stockage local
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -146,9 +145,13 @@ function ProfileDetail() {
           </label>
           <label>
             Devise :
-            <select value={currency} onChange={handleCurrencyChange}>
-              <option value="EUR">Euro</option>
-              <option value="USD">Dollar</option>
+            <select
+              value={sign}
+              onChange={(e) => setSign(e.target.value)}
+              style={{ margin: "0 1rem" }}
+            >
+              <option value="$">USD ($)</option>
+              <option value="€">EUR (€)</option>
             </select>
           </label>
           <button type="submit">Enregistrer</button>
@@ -161,7 +164,7 @@ function ProfileDetail() {
           <p>Téléphone : {phone}</p>
           <p>Adresse : {address}</p>
           <p>Langue : {language}</p>
-          <p>Devise : {currency}</p>
+          <p>Devise : {sign}</p>
           <button onClick={() => setEditMode(true)}>Modifier</button>
         </>
       )}

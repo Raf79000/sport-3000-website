@@ -10,10 +10,16 @@ function LoginDetail() {
   }, []); // Utilisez un tableau vide pour exécuter cet effet uniquement une fois au chargement initial
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isSignup, setIsSignup] = useState(false); // Ajout d'un état pour gérer le mode d'inscription ou de connexion
   const [errorMessage, setErrorMessage] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSignup && password !== confirmPassword) {
+      // Si l'utilisateur essaie de s'inscrire et que les mots de passe ne correspondent pas
+      setErrorMessage("Les mots de passe ne correspondent pas.");
+      return;
+    }
     try {
       const url = isSignup
         ? "http://localhost:3000/signup"
@@ -63,6 +69,14 @@ function LoginDetail() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {isSignup && (
+          <input
+            type="password"
+            placeholder="Confirmer le mot de passe"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        )}
         <button type="submit">
           {isSignup ? "S'inscrire" : "Se connecter"}
         </button>

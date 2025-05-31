@@ -4,7 +4,7 @@ import "../styles/ShoppingList.css";
 import { useEffect, useState } from "react";
 
 function ShoppingList() {
-  const { addToCart } = useCart();
+  const { addToCart } = useCart(); 
 
   const [itemList, setItemList] = useState([]);
   const [sortOption, setSortOption] = useState("priceLowToHigh");
@@ -17,7 +17,7 @@ function ShoppingList() {
         setItemList(data);
       })
       .catch((error) => {
-        console.error("Erreur pour la récupération des vêtements: ", error);
+        console.error("Erreur pour la récupération des items: ", error);
       });
   }, []);
 
@@ -78,6 +78,7 @@ function ShoppingList() {
 
       <div className="items-container">
         {sortedItems.map((item) => (
+          console.log(item.cover),
           <Item
             key={item.id}
             name={item.name}
