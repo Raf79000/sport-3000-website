@@ -19,42 +19,41 @@ const Cart = () => {
     .toFixed(2);
 
   return (
-    <div>
-      <header>
-        <h3>Shopping Cart</h3>
+    <div id="cart-container" className="cart-container">
+      <header id="cart-header" className="cart-header">
+        <h3 className="cart-title">Shopping Cart</h3>
       </header>
-      <main>
+      <main id="cart-main" className="cart-main">
         {cart.length > 0 ? (
           <>
-            <ul>
+            <ul className="cart-list">
               {cart.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex justify-between items-center p-sm border-b border-gray-700"
-                >
-                  <div>
-                    <span>{item.name}</span>
-                    <span>
+                <li key={index} className="cart-item">
+                  <div className="cart-item-details">
+                    <span className="item-name">{item.name}</span>
+                    <span className="item-price">
                       {item.onSale
                         ? `$${item.salesPrice.toFixed(2)}`
                         : `$${item.price.toFixed(2)}`}
                     </span>
                   </div>
-                  <div>
+                  <div className="cart-item-actions">
                     <button
-                      className="btn btn-secondary"
+                      className="btn btn-secondary btn-sm"
                       onClick={() => removeFromCart(index)}
+                      aria-label="Decrease quantity"
                     >
                       –
                     </button>
-                    <span>{item.quantity}</span>
+                    <span className="item-quantity">{item.quantity}</span>
                     <button
-                      className="btn btn-secondary"
+                      className="btn btn-secondary btn-sm"
                       onClick={() => addToCart(item)}
+                      aria-label="Increase quantity"
                     >
                       +
                     </button>
-                    <span>
+                    <span className="item-subtotal">
                       {item.onSale
                         ? `$${(item.salesPrice * item.quantity).toFixed(2)}`
                         : `$${(item.price * item.quantity).toFixed(2)}`}
@@ -63,13 +62,15 @@ const Cart = () => {
                 </li>
               ))}
             </ul>
-            <div>Total: ${totalPrice}</div>
-            <Link to="/checkout">
-              <button>Checkout</button>
+            <div className="cart-total">Total: ${totalPrice}</div>
+            <Link to="/checkout" className="checkout-link">
+              <button className="btn btn-primary checkout-btn">
+                Checkout
+              </button>
             </Link>
           </>
         ) : (
-          <p>Your cart is empty</p>
+          <p className="cart-empty">Your cart is empty</p>
         )}
       </main>
     </div>

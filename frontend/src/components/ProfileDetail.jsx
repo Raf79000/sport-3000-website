@@ -145,15 +145,6 @@ function ProfileDetail() {
               />
             </label>
             <label>
-              Mot de passe :
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="p-sm"
-              />
-            </label>
-            <label>
               Email :
               <input
                 type="email"
@@ -210,7 +201,6 @@ function ProfileDetail() {
         ) : (
           <>
             <p>Nom d'utilisateur : {username}</p>
-            <p>Mot de passe : {password}</p>
             <p>Email : {email}</p>
             <p>Téléphone : {phone}</p>
             <p>Adresse : {address}</p>
