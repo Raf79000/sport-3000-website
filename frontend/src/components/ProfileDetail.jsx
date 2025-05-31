@@ -1,32 +1,47 @@
-// ProfileDetail.jsx
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCurrencySign } from "../contexts/CurrencySignContext";
 import "../styles/App.css";
 
 function ProfileDetail() {
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [phone, setPhone] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [language, setLanguage] = useState(null);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [language, setLanguage] = useState(localStorage.getItem("language") || "fr");
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { sign, setSign } = useCurrencySign();
 
-  if (!localStorage.getItem("token")) {
-    return (
-      <div>
-        <header>
-          <h2>Veuillez vous connecter pour accéder à votre profil</h2>
-        </header>
-        <main>
-          <Link to="/login">Se connecter</Link>
-        </main>
-      </div>
-    );
-  }
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    if (!token || !userId) return;
+
+    fetch(`http://localhost:3000/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Erreur lors de la récupération des données utilisateur.");
+        return res.json();
+      })
+      .then((data) => {
+        setUsername(data.username || "");
+        setEmail(data.email || "");
+        setPhone(data.phone || "");
+        setAddress(data.address || "");
+        setLanguage(localStorage.getItem("language") || data.language || "fr");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Erreur fetch user:", err);
+        setLoading(false);
+      });
+  }, [token, userId]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -43,43 +58,63 @@ function ProfileDetail() {
     );
   };
 
+
   const handleDeleteAccount = () => {
     if (
-      window.confirm(
-        "Are you sure you want to delete your account? This action is irreversible."
-      )
+      window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")
     ) {
       fetch(`http://localhost:3000/user/${userId}`, {
         method: "DELETE",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          password: password,
-        }),
       })
-        .then((response) => {
-          if (response.ok) {
-            console.log("Account deleted successfully");
+        .then((res) => {
+          if (res.ok) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
             window.location.href = "/login";
           } else {
-            console.error("Error deleting account");
-            alert("Error deleting account");
+            alert("Erreur lors de la suppression du compte.");
           }
         })
-        .catch((error) => {
-          console.error("Error deleting account:", error);
-          alert("Error deleting account");
+        .catch((err) => {
+          console.error("Erreur suppression compte:", err);
+          alert("Erreur lors de la suppression du compte.");
         });
-      localStorage.removeItem("token");
-      localStorage.removeItem("userId");
-      window.location.href = "/login";
     }
   };
 
   const handleSave = (e) => {
     e.preventDefault();
-    setEditMode(false);
+
+    fetch(`http://localhost:3000/user/${userId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        phone,
+        address,
+        language,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Erreur lors de la mise à jour");
+        return res.json();
+      })
+      .then(() => {
+        setEditMode(false);
+        localStorage.setItem("language", language);
+      })
+      .catch((err) => {
+        console.error("Erreur update:", err);
+        alert("Échec de la mise à jour.");
+      });
   };
 
   const handleLanguageChange = (e) => {
@@ -87,10 +122,6 @@ function ProfileDetail() {
     localStorage.setItem("language", e.target.value);
   };
 
-  const userId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
-  console.log("Token utilisateur :", token);
-  console.log("ID utilisateur :", userId);
 
   return (
     <div>
@@ -198,4 +229,6 @@ function ProfileDetail() {
   );
 }
 
+
 export default ProfileDetail;
+ 

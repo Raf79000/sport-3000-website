@@ -9,11 +9,10 @@ function LoginDetail() {
       window.location.href = "/profile";
     }
   }, []);
-
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isSignup, setIsSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(false); 
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -31,7 +30,7 @@ function LoginDetail() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
       if (!response.ok) {
         const errorMessage = await response.text();
@@ -46,6 +45,7 @@ function LoginDetail() {
       window.location.href = "/profile";
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);
+      
       setErrorMessage("Identifiants incorrects. Veuillez réessayer.");
     }
   };
@@ -59,8 +59,8 @@ function LoginDetail() {
           <input
             type="email"
             placeholder="Email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="p-sm"
           />
           <input
