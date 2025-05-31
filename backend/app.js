@@ -3,6 +3,8 @@ const cors = require("cors");
 const mysql = require("mysql2");
 const multer = require("multer");
 const bodyParser = require("body-parser");
+const initRoutes = require("./index");
+
 const app = express();
 
 // On active bodyParser
@@ -40,6 +42,9 @@ const storage = multer.diskStorage({
     callback(null, fileName);
   },
 });
-const upload = multer({ storage: storage });
+const multerStorage = multer({ storage: storage });
+
+initRoutes(app, db_connexion, multerStorage);
+
 
 module.exports = app;
