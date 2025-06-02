@@ -149,250 +149,206 @@ button {
   transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.1s ease-in-out;
 }
 
-/* ---------------------------------------------------
-     2. HEADER & NAVIGATION
-     --------------------------------------------------- */
-#main-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing-md) var(--spacing-lg);
-  background-color: #12172e;
-  /* almost black/navy */
-  box-shadow: 0 2px 6px rgba(0, 255, 213, 0.3);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+/* ==============================
+   HEADER & NAVIGATION (Updated Dropdown)
+   ============================== */
 
-.header-container {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.logo-image {
-  width: 40px;
-  height: auto;
-  filter: hue-rotate(280deg) saturate(2);
-  /* neon-ish tint on the logo */
-  transition: transform 0.2s ease-in-out;
-}
-
-.logo-image:hover {
-  transform: scale(1.05);
-}
-
-.site-title a {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  text-shadow: 0 0 6px rgba(255, 0, 128, 0.7);
-}
-
-.site-title a:hover,
-.site-title a:focus {
-  color: var(--color-accent);
-}
-
-/* Main navigation */
-.main-nav {
-  background-color: #131a35;
-  /* dark navy */
-}
-
-.main-nav .nav-list {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
-  margin: 0;
-  padding: 0;
-}
-
-.nav-item {
-  position: relative;
-}
-
-.nav-item .nav-link {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--color-text-light);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-}
-
-.nav-item .nav-link:hover,
-.nav-item .nav-link:focus {
-  color: var(--color-surface);
-  background-color: var(--color-primary);
-}
-
-/* Cart icon link */
-.cart-link {
-  font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-light);
-  transition: color 0.2s ease-in-out;
-}
-
-.cart-link:hover,
-.cart-link:focus {
-  color: var(--color-primary);
-}
-
-/* Dark mode toggle */
-.dark-mode-toggle {
-  background: none;
-  border: none;
-  font-size: 1.25rem;
-  color: var(--color-text-light);
-  padding: var(--spacing-xs);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-}
-
-.dark-mode-toggle:hover,
-.dark-mode-toggle:focus {
-  color: var(--color-surface);
-  background-color: var(--color-primary);
-}
-
-/* Admin dropdown */
-.nav-item.dropdown {
-  position: relative;
-}
-
-.dropdown-toggle {
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--color-text-light);
-  cursor: pointer;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-}
-
-.dropdown-toggle:hover,
-.dropdown-toggle:focus {
-  color: var(--color-surface);
-  background-color: var(--color-primary);
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
-  margin-top: var(--spacing-xs);
-  min-width: 160px;
-  z-index: 1000;
-}
-
-.nav-item.dropdown:hover .dropdown-menu,
-.nav-item.dropdown:focus-within .dropdown-menu {
-  display: block;
-}
-
-.dropdown-menu li {
-  list-style: none;
-}
-
-.dropdown-link {
-  display: block;
-  padding: var(--spacing-sm) var(--spacing-md);
-  color: var(--color-text);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-.dropdown-link:hover,
-.dropdown-link:focus {
-  background-color: var(--color-primary-hover);
-  color: var(--color-surface);
-}
-
-/* Dark Mode Overrides for Header & Nav */
-body.dark-mode .site-title a {
-  color: var(--color-primary);
-}
-
-body.dark-mode .site-title a:hover,
-body.dark-mode .site-title a:focus {
-  color: var(--color-primary-hover);
-}
-
-body.dark-mode .main-nav {
-  background-color: #131a35;
-}
-
-body.dark-mode .nav-item .nav-link {
-  color: var(--color-text-light);
-}
-
-body.dark-mode .nav-item .nav-link:hover,
-body.dark-mode .nav-item .nav-link:focus {
-  background-color: var(--color-primary);
-}
-
-body.dark-mode .cart-link {
-  color: var(--color-text-light);
-}
-
-body.dark-mode .cart-link:hover,
-body.dark-mode .cart-link:focus {
-  color: var(--color-primary);
-}
-
-body.dark-mode .dark-mode-toggle {
-  color: var(--color-text-light);
-}
-
-body.dark-mode .dark-mode-toggle:hover,
-body.dark-mode .dark-mode-toggle:focus {
-  background-color: var(--color-primary);
-  color: var(--color-surface);
-}
-
-body.dark-mode .dropdown-toggle {
-  color: var(--color-text-light);
-}
-
-body.dark-mode .dropdown-toggle:hover,
-body.dark-mode .dropdown-toggle:focus {
-  background-color: var(--color-primary);
-  color: var(--color-surface);
-}
-
-body.dark-mode .dropdown-menu {
-  background-color: var(--color-surface);
-  border-color: var(--color-border);
-  box-shadow: none;
-}
-
-body.dark-mode .dropdown-link {
-  color: var(--color-text);
-}
-
-body.dark-mode .dropdown-link:hover,
-body.dark-mode .dropdown-link:focus {
-  background-color: var(--color-secondary-hover);
-  color: var(--color-surface);
-}
+   #main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: #12172e; /* almost black/navy */
+    box-shadow: 0 2px 6px rgba(0, 255, 213, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .logo-image {
+    width: 40px;
+    height: auto;
+    filter: hue-rotate(280deg) saturate(2);
+    transition: transform 0.2s ease-in-out;
+  }
+  .logo-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .site-title a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-shadow: 0 0 6px rgba(255, 0, 128, 0.7);
+  }
+  .site-title a:hover,
+  .site-title a:focus {
+    color: var(--color-accent);
+  }
+  
+  .main-nav {
+    background-color: #131a35; /* dark navy */
+  }
+  .main-nav .nav-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-item {
+    position: relative;
+  }
+  
+  .nav-item .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  }
+  .nav-item .nav-link:hover,
+  .nav-item .nav-link:focus {
+    color: var(--color-surface);
+    background-color: var(--color-primary);
+  }
+  
+  /* Cart icon link */
+  .cart-link {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light);
+    transition: color 0.2s ease-in-out;
+  }
+  .cart-link:hover,
+  .cart-link:focus {
+    color: var(--color-primary);
+  }
+  
+  /* Dark mode toggle */
+  .dark-mode-toggle {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--color-text-light);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  }
+  .dark-mode-toggle:hover,
+  .dark-mode-toggle:focus {
+    color: var(--color-surface);
+    background-color: var(--color-primary);
+  }
+  
+  /* ===== Admin Dropdown (with delay) ===== */
+  .nav-item.dropdown {
+    position: relative;
+  }
+  
+  .dropdown-toggle {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    cursor: pointer;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  }
+  .dropdown-toggle:hover,
+  .dropdown-toggle:focus {
+    color: var(--color-surface);
+    background-color: var(--color-primary);
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    margin-top: var(--spacing-xs);
+    min-width: 160px;
+    z-index: 1000;
+  
+    /* Hide initially, but keep in DOM for hover */
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.2s ease-in-out 0.3s,    /* delay fade-out by 0.3s */
+      visibility 0.2s ease-in-out 0.3s;
+  }
+  
+  .nav-item.dropdown:hover .dropdown-menu,
+  .nav-item.dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.2s ease-in-out 0s,      /* no delay on fade-in */
+      visibility 0s ease-in-out 0s;
+  }
+  
+  .dropdown-menu li {
+    list-style: none;
+  }
+  
+  .dropdown-link {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  .dropdown-link:hover,
+  .dropdown-link:focus {
+    background-color: var(--color-primary-hover);
+    color: var(--color-surface);
+  }
+  
+  /* Dark Mode Overrides for Admin Dropdown */
+  body.dark-mode .dropdown-toggle {
+    color: var(--color-text-light);
+  }
+  body.dark-mode .dropdown-toggle:hover,
+  body.dark-mode .dropdown-toggle:focus {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+  }
+  
+  body.dark-mode .dropdown-menu {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    /* keep opacity rules, but no separate box-shadow override needed */
+  }
+  body.dark-mode .dropdown-link {
+    color: var(--color-text);
+  }
+  body.dark-mode .dropdown-link:hover,
+  body.dark-mode .dropdown-link:focus {
+    background-color: var(--color-secondary-hover);
+    color: var(--color-surface);
+  }
+  
 
 /* ---------------------------------------------------
      3. MAIN CONTENT AREA
@@ -2304,6 +2260,169 @@ body.dark-mode .cart-empty {
     font-size: 1rem;
   }
 }
+
+/* ================================
+   Favorites (Heart) Button Styles
+   ================================ */
+
+.card-image-wrapper {
+  position: relative;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease-in-out;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+}
+
+.favorite-btn .heart-icon {
+  font-size: 1.5rem;
+  color: var(--color-text-light);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
+}
+
+/* When favorited: filled pink with glow */
+.favorite-btn.favorited .heart-icon {
+  color: var(--color-primary);
+  text-shadow: 0 0 6px rgba(255, 0, 128, 0.8),
+    0 0 12px rgba(255, 0, 128, 0.6);
+}
+
+/* ================================
+     Adjusted Card Layout for Favorites
+     ================================ */
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  height: 100%;
+}
+
+.item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Content area */
+.item-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-md);
+  flex: 1;
+}
+
+/* Item name */
+.item-name {
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-sm);
+  text-shadow: 0 0 4px rgba(0, 255, 255, 0.8);
+}
+
+/* Pricing */
+.item-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.item-sale-price {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.item-regular-price {
+  font-size: 1rem;
+  color: var(--color-text-light);
+}
+
+/* Description */
+.item-description {
+  flex: 1;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+/* “Soldes” badge */
+.sale-badge {
+  align-self: flex-start;
+  background-color: var(--color-secondary);
+  color: #000;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-md);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Add to Cart button at bottom */
+.item-card-body .btn-primary {
+  margin-top: auto;
+  align-self: center;
+  width: 100%;
+  max-width: 180px;
+}
+
+/* ================================
+     Dark Mode Overrides (Favorites)
+     ================================ */
+body.dark-mode .favorite-btn .heart-icon {
+  color: var(--color-text-light);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode .favorite-btn.favorited .heart-icon {
+  color: var(--color-primary);
+  text-shadow: 0 0 6px rgba(255, 0, 128, 0.8),
+    0 0 12px rgba(255, 0, 128, 0.6);
+}
+
+body.dark-mode .item-card {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+body.dark-mode .item-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+body.dark-mode .item-name {
+  color: var(--color-accent);
+}
+
+body.dark-mode .item-description {
+  color: var(--color-text-light);
+}
+
 
 
 /* ---------------------------------------------------

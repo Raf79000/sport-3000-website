@@ -43,6 +43,11 @@ const Header = () => {
                   Sales
                 </Link>
               </li>
+              <li>
+                <Link to="/favorites" className="dropdown-link">
+                  Favorites
+                </Link>
+              </li>
             </ul>
           </li>
           <li className="nav-item">

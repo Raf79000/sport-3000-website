@@ -5,6 +5,7 @@ import "./index.css";
 import { PreferencesProvider } from "./contexts/PreferencesContext";
 import { CartProvider } from "./contexts/CartContext";
 import { CurrencySignProvider } from "./contexts/CurrencySignContext";
+import { FavoritesProvider } from "./contexts/FavoritesContext";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import About from "./pages/About";
@@ -15,6 +16,7 @@ import Preferences from "./pages/Preferences";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Sales from "./pages/Sales";
+import Favorites from "./pages/Favorites"
 import Detail from "./pages/Detail";
 import Orders from "./pages/Orders";
 
@@ -24,6 +26,7 @@ root.render(
     <Router>
       <PreferencesProvider>
         <CartProvider>
+          <FavoritesProvider>
             <CurrencySignProvider>
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -38,9 +41,11 @@ root.render(
                 <Route path="/login" element={<Login />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/sales" element={<Sales />} />
+                <Route path="/favorites" element={<Favorites />} />
                 <Route path="/orders" element={<Orders />} />
               </Routes>
             </CurrencySignProvider>
+          </FavoritesProvider>
         </CartProvider>
       </PreferencesProvider>
     </Router>

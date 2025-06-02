@@ -53,6 +53,7 @@ const Detail = () => {
         {console.log(data.cover)}
         <Item
           key={data.id}
+          id={data.id}
           name={data.name}
           price={data.price}
           imageUrl={data.cover}

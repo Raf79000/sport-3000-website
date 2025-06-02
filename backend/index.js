@@ -16,8 +16,12 @@ const GetOrders = require("./services/Orders/GetOrders");
 const SaveOrder = require("./services/Orders/SaveOrder");
 const UpdateOrder = require("./services/Orders/UpdateOrder");
 
-const GetOrderItems = require("./services/OrdersItems/GetOrderItems")
+const GetOrderItems = require("./services/OrdersItems/GetOrderItems");
 const SaveOrderItem = require("./services/OrdersItems/SaveOrderItem");
+
+const GetUserFavorites = require("./services/Favorites/GetUserFavorites");
+const UpdateFavorites = require("./services/Favorites/UpdateFavorites");
+const DeleteUserFavorites = require("./services/Favorites/DeleteUserFavorites");
 
 module.exports = (app, db_connexion, multerStorage) => {
   // Items
@@ -41,6 +45,11 @@ module.exports = (app, db_connexion, multerStorage) => {
   UpdateOrder(app, db_connexion);
 
   // OrdersItems
-  GetOrderItems(app, db_connexion)
+  GetOrderItems(app, db_connexion);
   SaveOrderItem(app, db_connexion);
+
+  // Favorites
+  GetUserFavorites(app, db_connexion);
+  UpdateFavorites(app, db_connexion);
+  DeleteUserFavorites(app, db_connexion);
 };

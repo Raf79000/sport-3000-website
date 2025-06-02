@@ -52,8 +52,8 @@ function ShoppingList() {
 
   return (
     <div id="shoppinglist-container" className="shoppinglist-container">
-      <header id="shoppinglist-header" className="shoppinglist-header">
-        <h2 className="shoppinglist-title">Sport 3000 Products</h2>
+      <header id="favorites-header" className="shopping-header">
+        <h2 className="shopping-title">Sport 3000 Products</h2>
       </header>
 
       <main id="shoppinglist-main" className="shoppinglist-main">
@@ -88,6 +88,7 @@ function ShoppingList() {
           {sortedItems.map((item) => (
             <Item
               key={item.id}
+              id={item.id}
               name={item.name}
               price={item.price}
               imageUrl={item.cover}
