@@ -1,23 +1,23 @@
-const DeleteItem = require("./Services/Items/DeleteItem");
-const GetItem = require("./Services/Items/GetItem");
-const GetItems = require("./Services/Items/GetItems");
-const SaveItem = require("./Services/Items/SaveItem");
-const UpdateItem = require("./Services/Items/UpdateItem");
+const DeleteItem = require("./services/Items/DeleteItem");
+const GetItem = require("./services/Items/GetItem");
+const GetItems = require("./services/Items/GetItems");
+const SaveItem = require("./services/Items/SaveItem");
+const UpdateItem = require("./services/Items/UpdateItem");
 
-const GetUser = require("./Services/Users/GetUser");
-const Login = require("./Services/Users/Login");
-const SignUp = require("./Services/Users/SignUp");
-const DeleteUser = require("./Services/Users/DeleteUser");
-const UpdateUser = require("./Services/Users/UpdateUser");
+const GetUser = require("./services/Users/GetUser");
+const Login = require("./services/Users/Login");
+const SignUp = require("./services/Users/SignUp");
+const DeleteUser = require("./services/Users/DeleteUser");
+const UpdateUser = require("./services/Users/UpdateUser");
 
 
-const GetOrder = require("./Services/Orders/GetOrder");
-const GetOrders = require("./Services/Orders/GetOrders");
-const SaveOrder = require("./Services/Orders/SaveOrder");
-const UpdateOrder = require("./Services/Orders/UpdateOrder");
-const UpdateStatus = require("./Services/Orders/UpdateStatus");
+const GetOrder = require("./services/Orders/GetOrder");
+const GetOrders = require("./services/Orders/GetOrders");
+const SaveOrder = require("./services/Orders/SaveOrder");
+const UpdateOrder = require("./services/Orders/UpdateOrder");
+const UpdateStatus = require("./services/Orders/UpdateStatus");
 
-const SaveOrderItem = require("./Services/OrdersItems/SaveOrderItem");
+const SaveOrderItem = require("./services/OrdersItems/SaveOrderItem");
 
 module.exports = (app, db_connexion, multerStorage) => {
   // Items

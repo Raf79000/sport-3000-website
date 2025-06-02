@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const jwtHelper = require("./../../Util/jwtHelper");
-const error = require("./../../Util/error");
+const jwtHelper = require("../../utils/jwtHelper");
+const error = require("../../utils/error");
 
 module.exports = (app, db_connexion) => {
   app.post("/login", (req, res) => {
