@@ -21,9 +21,9 @@ const AboutDetail = () => {
               the vibrant energy that makes sports exciting.
             </p>
             <p>
-              Our products combine cutting-edge technology with designs
-              inspired by the bold aesthetics of the 80s and 90s – an era when
-              sports culture truly exploded into the mainstream.
+              Our products combine cutting-edge technology with designs inspired
+              by the bold aesthetics of the 80s and 90s – an era when sports
+              culture truly exploded into the mainstream.
             </p>
           </div>
           <div className="about-image-block">
@@ -94,9 +94,9 @@ const AboutDetail = () => {
             <p>
               <strong>Headquarters:</strong>
               <br />
-              123 Sporty Avenue
+              4 rue de la Force
               <br />
-              Paris, France 75001
+              Gondrin, France 32330
             </p>
             <p>
               <strong>Showroom Hours:</strong>
@@ -109,7 +109,13 @@ const AboutDetail = () => {
             </p>
           </div>
           <div className="visit-map-block">
-            <div className="visit-map-placeholder">MAP</div>
+            <iframe
+              title="Gondrin Location"
+              className="visit-map-iframe"
+              src="https://www.google.com/maps?q=4+Rue+de+la+Force,+32330+Gondrin&output=embed"
+              allowFullScreen
+              loading="lazy"
+            />
           </div>
         </div>
       </section>

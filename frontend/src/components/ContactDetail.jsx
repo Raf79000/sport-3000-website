@@ -102,9 +102,9 @@ const ContactDetail = () => {
                 <div>
                   <h3>Address</h3>
                   <p>
-                    123 Sporty Avenue
+                    4 rue de la Force
                     <br />
-                    Paris, France 75001
+                    Gondrin, France 32330
                   </p>
                 </div>
               </div>

@@ -1,6 +1,5 @@
 module.exports = (app, db_connexion) => {
   app.post("/orders", (req, res, next) => {
-    console.log("Creating order with body:", req.body);
     const { customerId, totalAmount, paymentMethod } = req.body;
 
     db_connexion.query(

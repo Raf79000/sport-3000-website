@@ -15,8 +15,8 @@ const GetOrder = require("./services/Orders/GetOrder");
 const GetOrders = require("./services/Orders/GetOrders");
 const SaveOrder = require("./services/Orders/SaveOrder");
 const UpdateOrder = require("./services/Orders/UpdateOrder");
-const UpdateStatus = require("./services/Orders/UpdateStatus");
 
+const GetOrderItems = require("./services/OrdersItems/GetOrderItems")
 const SaveOrderItem = require("./services/OrdersItems/SaveOrderItem");
 
 module.exports = (app, db_connexion, multerStorage) => {
@@ -39,8 +39,8 @@ module.exports = (app, db_connexion, multerStorage) => {
   GetOrders(app, db_connexion);
   SaveOrder(app, db_connexion);
   UpdateOrder(app, db_connexion);
-  UpdateStatus(app, db_connexion);
 
   // OrdersItems
+  GetOrderItems(app, db_connexion)
   SaveOrderItem(app, db_connexion);
 };

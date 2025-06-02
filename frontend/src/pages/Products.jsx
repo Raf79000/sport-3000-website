@@ -4,7 +4,7 @@ import ShoppingList from "../components/ShoppingList";
 import Cart from "../components/Cart";
 import "../styles/App.css";
 
-function App() {
+function Products() {
   return (
     <div>
       <Header />
@@ -18,4 +18,4 @@ function App() {
   );
 }
 
-export default App;
+export default Products;

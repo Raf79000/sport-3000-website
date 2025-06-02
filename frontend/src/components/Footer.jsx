@@ -27,6 +27,11 @@ const Footer = () => {
           <ul className="footer-links-list">
             <li className="footer-link-item">
               <Link to="/" className="footer-link">
+                Home
+              </Link>
+            </li>
+            <li className="footer-link-item">
+              <Link to="/products" className="footer-link">
                 Products
               </Link>
             </li>
@@ -54,13 +59,13 @@ const Footer = () => {
           <p className="footer-contact-text">Email: info@sport3000.com</p>
           <p className="footer-contact-text">Phone: +123 456 789</p>
           <div className="footer-social-links">
-            <a href="#" className="footer-social-link" aria-label="Facebook">
+            <a href="https://www.facebook.com/" className="footer-social-link" aria-label="Facebook">
               FB
             </a>
-            <a href="#" className="footer-social-link" aria-label="Instagram">
+            <a href="https://www.instagram.com/" className="footer-social-link" aria-label="Instagram">
               IG
             </a>
-            <a href="#" className="footer-social-link" aria-label="Twitter">
+            <a href="https://x.com/" className="footer-social-link" aria-label="Twitter">
               TW
             </a>
           </div>

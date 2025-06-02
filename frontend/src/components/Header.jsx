@@ -1,4 +1,4 @@
-// src/components/Header.jsx
+// Header.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { TiShoppingCart } from "react-icons/ti";
@@ -16,11 +16,7 @@ const Header = () => {
   return (
     <header id="main-header">
       <div className="header-container">
-        <img
-          src={logoSrc}
-          alt="Sport 3000 Logo"
-          className="logo-image"
-        />
+        <img src={logoSrc} alt="Sport 3000 Logo" className="logo-image" />
         <h1 className="site-title">
           <Link to="/">Sport 3000</Link>
         </h1>
@@ -30,13 +26,24 @@ const Header = () => {
         <ul className="nav-list">
           <li className="nav-item">
             <Link to="/" className="nav-link">
-              Products
+              Home
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/sales" className="nav-link">
-              Sales
-            </Link>
+          {/* Admin Dropdown */}
+          <li className="nav-item dropdown">
+            <button className="nav-link dropdown-toggle">Products</button>
+            <ul className="dropdown-menu">
+              <li>
+                <Link to="/products" className="dropdown-link">
+                  All
+                </Link>
+              </li>
+              <li>
+                <Link to="/sales" className="dropdown-link">
+                  Sales
+                </Link>
+              </li>
+            </ul>
           </li>
           <li className="nav-item">
             <Link to="/about" className="nav-link">
@@ -53,6 +60,24 @@ const Header = () => {
               Profile
             </Link>
           </li>
+
+          {/* Admin Dropdown */}
+          <li className="nav-item dropdown">
+            <button className="nav-link dropdown-toggle">Admin</button>
+            <ul className="dropdown-menu">
+              <li>
+                <Link to="/admin" className="dropdown-link">
+                  Admin Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link to="/orders" className="dropdown-link">
+                  Orders
+                </Link>
+              </li>
+            </ul>
+          </li>
+
           <li className="nav-item">
             <Link to="/checkout" className="nav-link cart-link">
               <TiShoppingCart />

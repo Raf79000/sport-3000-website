@@ -54,9 +54,6 @@ const SalesDetail = () => {
 
   return (
     <div id="sales-container" className="shopping-container">
-      <header id="sales-header" className="shopping-header">
-        <h1 className="shopping-title">Sales Page</h1>
-      </header>
       <main id="sales-main" className="shopping-main">
         <p className="paragraph">
           This is the sales page where you can find items on sale.

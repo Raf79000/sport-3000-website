@@ -1,80 +1,88 @@
+// ProfileDetail.jsx
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCurrencySign } from "../contexts/CurrencySignContext";
 import "../styles/App.css";
 
 function ProfileDetail() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [language, setLanguage] = useState(localStorage.getItem("language") || "fr");
+  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [phone_number, setPhoneNumber] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [language, setLanguage] = useState(
+    localStorage.getItem("language") || "fr"
+  );
   const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const { sign, setSign } = useCurrencySign();
-
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token || !userId) return;
+    // If not authenticated, redirect immediately
+    if (!token || !userId) {
+      navigate("/login");
+      return;
+    }
 
     fetch(`http://localhost:3000/user/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
       },
     })
       .then((res) => {
-        if (!res.ok) throw new Error("Erreur lors de la récupération des données utilisateur.");
+        if (res.status === 404) {
+          // User deleted or not found -> redirect
+          navigate("/login");
+          throw new Error("User not found");
+        }
+        if (!res.ok) {
+          throw new Error(
+            "Erreur lors de la récupération des données utilisateur."
+          );
+        }
         return res.json();
       })
       .then((data) => {
         setUsername(data.username || "");
         setEmail(data.email || "");
-        setPhone(data.phone || "");
+        setPhoneNumber(data.phone_number || "");
         setAddress(data.address || "");
         setLanguage(localStorage.getItem("language") || data.language || "fr");
-        setLoading(false);
       })
       .catch((err) => {
         console.error("Erreur fetch user:", err);
-        setLoading(false);
+        // On any other error redirect to login
+        navigate("/login");
       });
-  }, [token, userId]);
+  }, [token, userId, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    return (
-      <div>
-        <header>
-          <h2>Vous êtes déconnecté</h2>
-        </header>
-        <main>
-          <Link to="/login">Se connecter</Link>
-        </main>
-      </div>
-    );
+    navigate("/login");
   };
-
 
   const handleDeleteAccount = () => {
     if (
-      window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")
+      window.confirm(
+        "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible."
+      )
     ) {
       fetch(`http://localhost:3000/user/${userId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-type": "application/json",
         },
       })
         .then((res) => {
           if (res.ok) {
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
-            window.location.href = "/login";
+            navigate("/login");
           } else {
             alert("Erreur lors de la suppression du compte.");
           }
@@ -92,15 +100,13 @@ function ProfileDetail() {
     fetch(`http://localhost:3000/user/${userId}`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username,
         email,
-        phone,
+        phone_number,
         address,
-        language,
       }),
     })
       .then((res) => {
@@ -122,7 +128,6 @@ function ProfileDetail() {
     localStorage.setItem("language", e.target.value);
   };
 
-
   return (
     <div>
       <header>
@@ -130,9 +135,6 @@ function ProfileDetail() {
       </header>
       <main>
         <p>ID de l'utilisateur : {userId}</p>
-        <button onClick={handleLogout}>
-          Se déconnecter
-        </button>
         {editMode ? (
           <form onSubmit={handleSave}>
             <label>
@@ -157,8 +159,8 @@ function ProfileDetail() {
               Téléphone :
               <input
                 type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={phone_number}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 className="p-sm"
               />
             </label>
@@ -194,31 +196,24 @@ function ProfileDetail() {
                 <option value="€">EUR (€)</option>
               </select>
             </label>
-            <button type="submit">
-              Enregistrer
-            </button>
+            <button type="submit">Enregistrer</button>
           </form>
         ) : (
           <>
             <p>Nom d'utilisateur : {username}</p>
             <p>Email : {email}</p>
-            <p>Téléphone : {phone}</p>
+            <p>Téléphone : {phone_number}</p>
             <p>Adresse : {address}</p>
             <p>Langue : {language}</p>
             <p>Devise : {sign}</p>
-            <button onClick={() => setEditMode(true)}>
-              Modifier
-            </button>
+            <button onClick={() => setEditMode(true)}>Modifier</button>
           </>
         )}
-        <button onClick={handleDeleteAccount}>
-          Delete Account
-        </button>
+        <button onClick={handleLogout}>Se déconnecter</button>
+        <button onClick={handleDeleteAccount}>Delete Account</button>
       </main>
     </div>
   );
 }
 
-
 export default ProfileDetail;
- 

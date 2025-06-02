@@ -7,7 +7,6 @@ module.exports = (app, db_connexion) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      console.log("prout");
       return error.Unauthorized(res, "Token manquant.");
     }
 
@@ -26,7 +25,7 @@ module.exports = (app, db_connexion) => {
     }
 
     db_connexion.query(
-      "SELECT id, email, username, phone, address FROM users WHERE id = ?",
+      "SELECT id, email, username, phone_number, address FROM users WHERE id = ?",
       [userId],
       (errorDb, results) => {
         if (errorDb) {
