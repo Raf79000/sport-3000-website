@@ -1,4 +1,3 @@
-const jwtHelper = require("../../utils/jwtHelper");
 const error = require("../../utils/error");
 
 module.exports = (app, db_connexion) => {

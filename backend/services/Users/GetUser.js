@@ -1,28 +1,8 @@
-const jwtHelper = require("../../utils/jwtHelper");
 const error = require("../../utils/error");
 
 module.exports = (app, db_connexion) => {
   app.get("/user/:id", (req, res) => {
     const userId = req.params.id;
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-      return error.Unauthorized(res, "Token manquant.");
-    }
-
-    const token = authHeader.split(" ")[1];
-    let payload;
-
-    try {
-      payload = jwtHelper.verifyJwtToken(token);
-    } catch (err) {
-      console.error("Erreur de vérification du token :", err);
-      return error.Unauthorized(res, "Token invalide.");
-    }
-
-    if (parseInt(payload.userId) !== parseInt(userId)) {
-      return error.Forbidden(res, "Accès refusé à cet utilisateur.");
-    }
 
     db_connexion.query(
       "SELECT id, email, username, phone_number, address FROM users WHERE id = ?",

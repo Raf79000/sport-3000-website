@@ -28,13 +28,15 @@ function ProfileDetail() {
 
     fetch(`http://localhost:3000/user/${userId}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
         "Content-type": "application/json",
       },
     })
       .then((res) => {
         if (res.status === 404) {
           // User deleted or not found -> redirect
+          localStorage.removeItem("token");
+          localStorage.removeItem("userId");
           navigate("/login");
           throw new Error("User not found");
         }
@@ -55,6 +57,8 @@ function ProfileDetail() {
       .catch((err) => {
         console.error("Erreur fetch user:", err);
         // On any other error redirect to login
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         navigate("/login");
       });
   }, [token, userId, navigate]);

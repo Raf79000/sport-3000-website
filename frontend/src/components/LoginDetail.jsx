@@ -1,11 +1,12 @@
 // LoginDetail.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/App.css";
 
 function LoginDetail() {
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    const userId = localStorage.getItem("userId");
+    if (token && userId) {
       window.location.href = "/profile";
     }
   }, []);
